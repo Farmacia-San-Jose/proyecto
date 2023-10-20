@@ -19,7 +19,7 @@ class Seccion(models.Model):
 
 class HistorialInvetario(models.Model):
     medicine_id = models.ForeignKey(Medicamento, blank=False, null=False, on_delete=models.CASCADE)
-    location_id = models.ForeignKey(Ubicacion, blank=False, null=False, on_delete=models.CASCADE)
+    location_id = models.ForeignKey(Ubicacion, blank=True, null=True, on_delete=models.CASCADE)
     quantity_stock = models.IntegerField()
     row = models.CharField(max_length=50)
     column = models.CharField(max_length=50)

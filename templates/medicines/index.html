@@ -23,12 +23,7 @@
                 <li class="nav-item">
                   <a class="nav-link {% if request.path == index%} active {% endif %}" aria-current="page" href="{% url 'medicines:index'%}" style="color: black;">Todos</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link {% if request.path == existencia%} active {% endif %}" href="{% url 'medicines:existencia'%}" style="color: black;">En Exisitencia</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link {% if request.path == vencidos%} active {% endif %}" href="{% url 'medicines:vencidos' %}" style="color: black;">Vencidos</a>
-                </li>
+                
                
               </ul>
                       
@@ -117,7 +112,7 @@
                             <ul>
                                 {%for historial_medico in historial_medico_list%}
                                     {% if historial_medico.medicine_id.id == medicamento.id%}
-                                    <p>{{historial_medico.presentation_id}}</p>                                    
+                                    <p>{{historial_medico.presentation_id.presentation_type}}</p>                                    
                                     {%endif%}
                                     
                                 {% endfor %}

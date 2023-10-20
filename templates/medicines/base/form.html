@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="row shadow p-3 mb-5 bg-body-tertiary rounded" >
+<div class="row " >
     <div class="registro" style="margin-bottom:2rem ;">
         <h2>Registrando un Medicamento</h2>
     
@@ -29,7 +29,7 @@
 
     </div>
     
-    <form method="GET" >
+    <form method="POST" >
         {% csrf_token %}
         <!-- SECCION DE INFORMACION DEL MEDICAMENTO-->
         <div class="row" style="margin-bottom:2rem ;">
@@ -46,7 +46,7 @@
                 <div class="formulario_medicamento">                    
                     <div class="form-group">
                         <label for="medicine_name" class="fw-medium">Nombre del Medicamento</label>
-                        <input type="text" id="medicine_name" name="medicine_name" class="form-control" placeholder="Escribre el nombre del medicamento" style="border: 1px solid #52be80;">
+                        <input type="text" id="medicine_name" name="medicine_name" class="form-control" required placeholder="Escribre el nombre del medicamento" style="border: 1px solid #52be80;">
                     </div>
                     <br>
                     <div class="form-group">
@@ -239,7 +239,7 @@
                         <hr>
                         <div class="col-8">
                             <label for="fecha" class="fw-medium">Fecha de vencimiento</label>
-                            <input type="date" class="form-control" id="fecha" name="fecha" style="border: 1px solid #52be80;" >
+                            <input type="date" class="form-control" id="fecha" name="fecha_vencimiento" style="border: 1px solid #52be80;" >
                         </div>
                     </div             
                 </div>
@@ -307,7 +307,7 @@
             },
 
             placehorlder: 'Ingresa el nombre del proveedor...',
-            //minimumInputLength:1
+            minimumInputLength:1
            
         });
     

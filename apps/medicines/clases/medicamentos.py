@@ -1,13 +1,52 @@
 import json
+import requests
+
+# Modelos
+from apps.medicines.models import Medicamento as medicamento, HistorialMedicamento
+from apps.users.models import User
+from django.contrib.auth.hashers import check_password
+
+def listar_medicamento():
+    
+    
+    url = 'http://127.0.0.1:8000/medicamentos/api/medicamentos/'
+    headers = {
+        'Content-Type':'application/json'
+    }
+    response = requests.get(url, headers=headers,auth=('choc1403','choc1403'))
+    print(response)
+    
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return response.status_code
+    
+
+
+def listar_historial_medicamento():
+    url = 'http://127.0.0.1:8000/medicamentos/api/historial-medicamento/'
+    headers = {
+        'Content-Type':'application/json'
+    }
+    response = requests.get(url, headers=headers,auth=('choc1403','choc1403'))
+    
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        return response.status_code
 
 
 class Medicamento:
   contador=0
 
-  def __init__(self,id,medicine_name,description=None, creation_date=None):
+  def __init__(self, medicine_name=None,description=None, creation_date=None):
+      
       Medicamento.contador+=1
       self._contador = Medicamento.contador
-      self._id = id
+      
+      self._id = Medicamento.contador
       self._medicine_name = medicine_name
       self._description = description
       self._creation_date = creation_date
@@ -41,11 +80,11 @@ class Medicamento:
       self._medicamento_dic['creation_date']=self.creation_date
 
       return self._medicamento_dic
-      
-  
 
   def __str__(self): 
       return json.dumps(self.diccionario)
+  
+  
 
 
 class HistorialMedicamento:
