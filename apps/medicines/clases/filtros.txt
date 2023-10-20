@@ -1,0 +1,53 @@
+def existence(request):
+    # OBTENER MEDICAMENTOS
+    medicine_list = Medicamento.objects.all()
+
+     # OBTENER UBICACIONES
+    ubicacion_list = Ubicacion.objects.all()
+
+    # PAGINACION
+    page_obj = paginacion(request,medicine_list)
+
+    # TEMPLATE
+    template_name = 'medicines/base/medicina_filtro.html' 
+        
+
+    # CONEXTO
+    context = {
+        'title':'Medicamentos Existentes',
+        'page_obj':page_obj,
+        
+        'ubicacion_list':ubicacion_list,
+    }
+    return render(request,template_name, context)
+
+def defeated(request):
+    # OBTENER MEDICAMENTOS
+    medicine_list = Medicamento.objects.all()
+
+    # OBTENER UBICACIONES
+    ubicacion_list = Ubicacion.objects.all()
+
+    # PAGINACION
+    page_obj = paginacion(request,medicine_list)
+
+    # TEMPLATE
+    template_name = 'medicines/base/medicina_filtro.html' 
+    
+
+    
+    # CONEXTO
+    context = {
+        'title':'Medicamentos Vencidos',
+        'page_obj':page_obj,
+
+        'ubicacion_list':ubicacion_list,
+    }
+    return render(request,template_name, context)
+
+    <li class="nav-item">
+                  <a class="nav-link {% if request.path == existencia%} active {% endif %}" href="{% url 'medicines:existencia'%}" style="color: black;">En Exisitencia</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {% if request.path == vencidos%} active {% endif %}" href="{% url 'medicines:vencidos' %}" style="color: black;">Vencidos</a>
+                </li>
