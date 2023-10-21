@@ -8,6 +8,7 @@ from django.http import HttpResponse
 # DJANGO
 from django.shortcuts import render
 from django.db import transaction
+from django.contrib.auth.decorators import login_required
 
 # CONSULTA
 from .consultas.resultado_consulta import listar, existencia, vencidos
@@ -37,7 +38,90 @@ fecha_actual = datetime.now()
 fecha_actual_solo_fecha = fecha_actual.date()
 
 
+
+#------- Funcion para guardar informacion
+def guardar(request):
+     # Atributos para el apartado de medicina
+    medicina_name = request.POST.get('medicine_name')
+    medicine_description = request.POST.get('medicine_description')
+
+    # Guardar informacion
+    medicina = MedicamentoModel(medicine_name=medicina_name, description=medicine_description)
+    medicina.save()
+
+    medicina_id = get_object_or_404(MedicamentoModel, id = medicina.id)
+            
+            
+    # Segun su clasificacion
+    with transaction.atomic():
+        
+        opciones_uso = request.POST.getlist('opciones_uso[]')
+        opciones_forma = request.POST.getlist('opciones_forma[]')
+                
+        combinar = itertools.zip_longest(opciones_uso, opciones_forma, fillvalue=None)
+
+        for uso, forma in combinar:
+            clasificacion = Clasificacion()
+            clasificacion.medicine_id = medicina_id
+            if uso != None:
+                uso_id = get_object_or_404(UsoTerapeutico, id = uso)
+                tener_uso = uso_id
+
+            if forma !=None:
+                forma_id = get_object_or_404(FormaAdministracion, id = forma)                
+                tener_forma= forma_id
+                    
+                
+            clasificacion.therepeuticuse_id = tener_uso
+            clasificacion.formadministration_id = tener_forma
+            #print(f' USO TERAPEUTICO - {clasificacion.therepeuticuse_id}')
+            #print(f'FORMA DE ADMINISTRACION - {clasificacion.formadministration_id}')
+            clasificacion.save()
+
+
+    # Historial de medicamento
+
+    historialM = HistorialMedicamentoModel()
+    historialM.medicine_id = medicina_id
+
+    presentacion = request.POST.get('tipo_presentacion')
+    if presentacion != None:
+        presentacion_id = get_object_or_404(Presentacion, id=presentacion)
+        historialM.presentation_id = presentacion_id
+
+    proveedor = request.POST.get('proveedor_select')
+
+    if proveedor != None:
+        proveedor_id = get_object_or_404(Proveedor, id = proveedor )
+        historialM.supplier_id = proveedor_id
+
+    cost_price = request.POST.get('cost_price')
+    marca = request.POST.get('brand')
+    fecha_vencimiento = request.POST.get('fecha_vencimiento')
+    codigo = request.POST.get('code_medicine')
+            
+            
+            
+    historialM.cost_price = cost_price
+    historialM.brand = marca
+    historialM.medication_code = codigo
+    historialM.expiration_date = fecha_vencimiento
+    historialM.save()
+
+    # Historial de inventario 
+    historialI = HistorialInvetario()
+    historialI.medicine_id= medicina_id
+    cantidad = request.POST.get('cantidad')    
+    sale_price = request.POST.get('sale_price')
+
+    historialI.quantity_stock = cantidad
+    historialI.sale_price = sale_price
+    historialI.save()
+
+
+
 # Create your views here.
+@login_required
 def index(request):
     
     # OBTENER MEDICAMENTOS
@@ -87,88 +171,19 @@ def index(request):
 
 
 
-
+@login_required
 def add(request):
+    
     context = {
 
         'title':'Registro de Medicamento'
     }
 
     if request.method == 'POST':
+        guardar(request)
+        
 
-        with transaction.atomic():
-
-            # Atributos para el apartado de medicina
-            medicina_name = request.POST.get('medicine_name')
-            medicine_description = request.POST.get('medicine_description')
-
-            # Guardar informacion
-            medicina = MedicamentoModel(medicine_name=medicina_name, description=medicine_description)
-            medicina.save()
-
-            medicina_id = get_object_or_404(MedicamentoModel, id = medicina.id)
-            
-            
-            # Segun su clasificacion
-            clasificacion = Clasificacion()
-            clasificacion.medicine_id = medicina_id
-            opciones_uso = request.POST.getlist('opciones_uso[]')
-            opciones_forma = request.POST.getlist('opciones_forma[]')
-            
-            combinar = itertools.zip_longest(opciones_uso, opciones_forma, fillvalue=None)
-
-            for uso, forma in combinar:
-                if uso != None:
-                    uso_id = get_object_or_404(UsoTerapeutico, id = uso)
-                    clasificacion.therepeuticuse_id = uso_id
-
-                if forma !=None:
-                    forma_id = get_object_or_404(FormaAdministracion, id = forma)                
-                    clasificacion.formadministration_id = forma_id
-                
-                clasificacion.save()
-
-
-            # Historial de medicamento
-
-            historialM = HistorialMedicamentoModel()
-            historialM.medicine_id = medicina_id
-
-            presentacion = request.POST.get('tipo_presentacion')
-            if presentacion != None:
-                presentacion_id = get_object_or_404(Presentacion, id=presentacion)
-                historialM.presentation_id = presentacion_id
-
-            proveedor = request.POST.get('proveedor_select')
-
-            if proveedor != None:
-                proveedor_id = get_object_or_404(Proveedor, id = proveedor )
-                historialM.supplier_id = proveedor_id
-
-            cost_price = request.POST.get('cost_price')
-            marca = request.POST.get('brand')
-            fecha_vencimiento = request.POST.get('fecha_vencimiento')
-            codigo = request.POST.get('code_medicine')
-            
-            
-            
-            historialM.cost_price = cost_price
-            historialM.brand = marca
-            historialM.medication_code = codigo
-            historialM.expiration_date = fecha_vencimiento
-            historialM.save()
-
-            # Historial de inventario 
-            historialI = HistorialInvetario()
-            historialI.medicine_id= medicina_id
-            cantidad = request.POST.get('cantidad')    
-            sale_price = request.POST.get('sale_price')
-
-            historialI.quantity_stock = cantidad
-            historialI.sale_price = sale_price
-            historialI.save() 
-
-            return redirect('medicines:index')
+        return redirect('medicines:index')
 
 
 
@@ -176,7 +191,11 @@ def add(request):
     
 
 # ------------- MODULO DE ACTULIZAR ---------------------
+@login_required
 def update(request, id):
+    if not request.user.is_superuser:
+        return redirect('medicines:index')
+    
     medicina = get_object_or_404(MedicamentoModel, id=id)
     proveedores = Proveedor.objects.all()
     historial_mediamento_list = HistorialMedicamentoModel.objects.all().filter(medicine_id=medicina)

@@ -137,20 +137,7 @@
                 <hr>
                 <div class="col-8">
                     <div class="presentacion" id="presentacion">
-                        {% for presentacion, historial_medico in combinacion_list_2%}                        
-                        <div class="form-group">
-                            <div class="form-check">
-                                
-                                {%  if presentacion.id == historial_medico.presentation_id.id %}
-                                <input checked type="radio" class="form-check-input" value="{{presentacion.id}}" id = "{{presentacion.id}}" name="tipo_presentacion" style="border:1px solid #52be80;"> 
-                                <label class="form-check-label fw-medium" for="{{presentacion.id}}"> {{presentacion.presentation_type}} </label>
-                                {% else %}
-                                <input type="radio" class="form-check-input" value="{{presentacion.id}}" id = "{{presentacion.id}}" name="tipo_presentacion" style="border:1px solid #52be80;"> 
-                                <label class="form-check-label fw-medium" for="{{presentacion.id}}"> {{presentacion.presentation_type}} </label>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% endfor %}
+                        
 
                     </div>
                 </div>
@@ -286,5 +273,5 @@
 {% endblock %}
 
 {% block js %}
-<script type="module" src="{% static "js/medicines/api/update.js" %}"></script>
+<script type="module" src="{% static "js/medicines/api/list_for_update.js" %}"></script>
 {% endblock%}

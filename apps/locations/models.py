@@ -26,3 +26,6 @@ class HistorialInvetario(models.Model):
     sale_price = models.DecimalField(max_digits=8, decimal_places=2, default=0.0)
     locationsection_id = models.ForeignKey(Seccion, blank=True, null=True, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return '{}'.format(self.medicine_id)
+

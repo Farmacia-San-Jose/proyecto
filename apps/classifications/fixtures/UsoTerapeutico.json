@@ -1,0 +1,66 @@
+[
+{
+    "model": "classifications.usoterapeutico",
+    "pk": 4,
+    "fields": {
+        "type_therepeuticuse": "Analgésico",
+        "description": "Alivian el dolor, como el paracetamol o los antiinflamatorios no esteroides."
+    }
+},
+{
+    "model": "classifications.usoterapeutico",
+    "pk": 5,
+    "fields": {
+        "type_therepeuticuse": "Antibióticos",
+        "description": "Tratan infecciones bacterianas, como la penicilina o la amoxicilina."
+    }
+},
+{
+    "model": "classifications.usoterapeutico",
+    "pk": 6,
+    "fields": {
+        "type_therepeuticuse": "Antivirales",
+        "description": "Combaten infecciones virales, como el oseltamivir para la gripe."
+    }
+},
+{
+    "model": "classifications.usoterapeutico",
+    "pk": 7,
+    "fields": {
+        "type_therepeuticuse": "Antifúngicos",
+        "description": "Tratan infecciones fúngicas, como el fluconazol para la candidiasis."
+    }
+},
+{
+    "model": "classifications.usoterapeutico",
+    "pk": 8,
+    "fields": {
+        "type_therepeuticuse": "Antineoplásicos",
+        "description": "Utilizados en el tratamiento del cáncer, como la quimioterapia."
+    }
+},
+{
+    "model": "classifications.usoterapeutico",
+    "pk": 9,
+    "fields": {
+        "type_therepeuticuse": "Antihipertensivos",
+        "description": "Controlan la presión arterial alta, como los betas bloqueadores o los inhibidores de la enzima convertidora de angiotensina."
+    }
+},
+{
+    "model": "classifications.usoterapeutico",
+    "pk": 10,
+    "fields": {
+        "type_therepeuticuse": "Antidepresivos",
+        "description": "Tratan trastornos del estado de ánimo, como los inhibidores selectivos de la recaptación de serotonina."
+    }
+},
+{
+    "model": "classifications.usoterapeutico",
+    "pk": 11,
+    "fields": {
+        "type_therepeuticuse": "Anticonvulsivos",
+        "description": "Controlan las convulsiones y la epilepsia, como la fenitoína o el ácido valproico."
+    }
+}
+]

@@ -1,0 +1,42 @@
+[
+{
+    "model": "classifications.formaadministracion",
+    "pk": 3,
+    "fields": {
+        "type_adminstrationform": "Orales",
+        "description": "Se toman por vía oral, como tabletas, cápsulas o líquidos."
+    }
+},
+{
+    "model": "classifications.formaadministracion",
+    "pk": 4,
+    "fields": {
+        "type_adminstrationform": "Tópicos",
+        "description": "Se aplican directamente sobre la piel, mucosas o superficies corporales, como cremas o gotas para los ojos."
+    }
+},
+{
+    "model": "classifications.formaadministracion",
+    "pk": 5,
+    "fields": {
+        "type_adminstrationform": "Parenterales",
+        "description": "Se administran por inyección, como intravenosa (IV), intramuscular (IM) o subcutánea (SC)."
+    }
+},
+{
+    "model": "classifications.formaadministracion",
+    "pk": 6,
+    "fields": {
+        "type_adminstrationform": "Inhalados",
+        "description": "Se inhala a través de los pulmones, como los inhaladores para el asma."
+    }
+},
+{
+    "model": "classifications.formaadministracion",
+    "pk": 7,
+    "fields": {
+        "type_adminstrationform": "Rectales o Vaginales",
+        "description": "Se administran por vía rectal o vaginal, como supositorios o cremas vaginales."
+    }
+}
+]
