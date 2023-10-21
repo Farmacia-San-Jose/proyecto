@@ -9,8 +9,11 @@ var formulario_medicamento = document.getElementById('formulario_medicamento');
 
 // Clasificacion
 var checkbox_uso = document.getElementById('usoTerapeutico');
+checkbox_uso.innerHTML='';
 
-const contenedorCheckboxes = document.getElementById("usoTerapeutico");
+var checkbox_forma = document.getElementById('formaAdministracion');
+checkbox_forma.innerHTML='';
+
 
 // Detalle del medicamento
 const url_medicamento = 'http://127.0.0.1:8000/medicamentos/api/medicamentos/'+medicine_id+'/'
@@ -18,11 +21,6 @@ const url_clasificacion = 'http://127.0.0.1:8000/clasificacion/api/v1/clasificac
 const url_uso_terapeutico = 'http://127.0.0.1:8000/clasificacion/api/v1/uso-terapeutico/'
 const url_forma_administracion = 'http://127.0.0.1:8000/clasificacion/api/v1/forma-administracion/'
 
-
-
-
-
-var listado_forma_administracion = []
 
 
 // Informacion del medicamento
@@ -64,19 +62,25 @@ function datos (){
         temp.forEach(cla =>{
             if(cla.medicine_id == medicine_id){
                 listado_uso_terapeutico_seleccionado.push( cla.therepeuticuse_id);
-                listado_forma_administracion_seleccionado = cla.formadministration_id;
+                listado_forma_administracion_seleccionado.push(cla.formadministration_id);
             }
         });
-        listado_uso_terapeutico.forEach(uso => {
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.id = uso.id;            
-            checkbox.checked = listado_uso_terapeutico_seleccionado.includes(uso.id);
-            contenedorCheckboxes.appendChild(checkbox);
-            const label = document.createElement("label");
-            label.textContent = uso.type_therepeuticuse;
-            contenedorCheckboxes.appendChild(label);
-            contenedorCheckboxes.appendChild(document.createElement("br"));
+        listado_uso_terapeutico.forEach(uso => {           
+            if(listado_uso_terapeutico_seleccionado.includes(uso.id)){
+                checkbox_uso.innerHTML+='<div.class="form-group"> <div class="form-check"> <input checked class="form-check-input" type="checkbox" value="'+uso.id+'" id="'+uso.id+'name="opciones_uso[]" style="border:1px solid #52be80;"> <label class="form-check-label fw-medium" for="'+uso.id+'">'+uso.type_therepeuticuse+'</label></div></div>'
+                
+            }else{
+                checkbox_uso.innerHTML+='<div.class="form-group"> <div class="form-check"><input  class="form-check-input" type="checkbox" value="'+uso.id+'" id="'+uso.id+'name="opciones_uso[]" style="border:1px solid #52be80;" ><label class="form-check-label fw-medium" for="'+uso.id+'">'+uso.type_therepeuticuse+'</label></div></div>'
+            }
+
+        });
+        listado_forma_administracion.forEach(forma =>{
+            if(listado_forma_administracion_seleccionado.includes(forma.id)){
+                checkbox_forma.innerHTML+='<div.class="form-group"> <div class="form-check"> <input checked class="form-check-input" type="checkbox" value="'+forma.id+'" id="'+forma.id+'name="opciones_uso[]" style="border:1px solid #52be80;"> <label class="form-check-label fw-medium" for="'+forma.id+'">'+forma.type_adminstrationform+'</label></div></div>'
+            }else{
+                checkbox_forma.innerHTML+='<div.class="form-group"> <div class="form-check"> <input class="form-check-input" type="checkbox" value="'+forma.id+'" id="'+forma.id+'name="opciones_uso[]" style="border:1px solid #52be80;"> <label class="form-check-label fw-medium" for="'+forma.id+'">'+forma.type_adminstrationform+'</label></div></div>'
+            }
+
         });
 
 
