@@ -178,15 +178,18 @@ def add(request):
 # ------------- MODULO DE ACTULIZAR ---------------------
 def update(request, id):
     medicina = get_object_or_404(MedicamentoModel, id=id)
+    proveedores = Proveedor.objects.all()
+    historial_mediamento_list = HistorialMedicamentoModel.objects.all().filter(medicine_id=medicina)
+    presentacion_list = Presentacion.objects.all()
 
-    clasificacion_list_m = Clasificacion.objects.all()
-    
+    combinar = itertools.zip_longest(proveedores, historial_mediamento_list, fillvalue=None)
+    combinar2 = itertools.zip_longest(presentacion_list, historial_mediamento_list, fillvalue=None)
     context = {
             'title':'Actualizando {}'.format(medicina),
             'medicine':medicina,
-            'clasificacion_list':clasificacion_list_m,
-            'usoterapeutico_list': UsoTerapeutico.objects.all()
-            
+            'combinacion_list':combinar,
+            'combinacion_list_2':combinar2,
+            'historial_mediamento_list':historial_mediamento_list,     
     }
     return render(request, 'medicines/base/update_form.html', context)
 

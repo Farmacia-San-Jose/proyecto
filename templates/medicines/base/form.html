@@ -9,96 +9,106 @@
 {% endblock %}
 
 {% block content %}
-<div class="row " >
+<div class="row ">
     <div class="registro" style="margin-bottom:2rem ;">
         <h2>Registrando un Medicamento</h2>
-    
-        <p class="text-body-secondary">Un registro de medicamento es una documentación detallada que contiene información específica sobre un medicamento en particular. Esta información es crucial para asegurar la seguridad, eficacia y calidad del medicamento.</p>
-        
+
+        <p class="text-body-secondary">Un registro de medicamento es una documentación detallada que contiene
+            información específica sobre un medicamento en particular. Esta información es crucial para asegurar la
+            seguridad, eficacia y calidad del medicamento.</p>
+
         <div class="row ">
             <div class="col d-flex justify-content-end">
-                <a href="{%  url 'medicines:index' %}" style="text-decoration: none; cursor: pointer;background-color: #52be80; color: #effaf3; border-radius: 1rem; margin-right: 1rem; width: 8rem; height: 1.8rem; text-align: center;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                      </svg>
-                      Cancelar
-                    </a>
+                <a href="{%  url 'medicines:index' %}"
+                    style="text-decoration: none; cursor: pointer;background-color: #52be80; color: #effaf3; border-radius: 1rem; margin-right: 1rem; width: 8rem; height: 1.8rem; text-align: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                    </svg>
+                    Cancelar
+                </a>
             </div>
         </div>
         <hr>
 
     </div>
-    
-    <form method="POST" >
+
+    <form method="POST">
         {% csrf_token %}
         <!-- SECCION DE INFORMACION DEL MEDICAMENTO-->
         <div class="row" style="margin-bottom:2rem ;">
-            
+
             <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
                 <div class="titulo">
                     <h6>Medicamento</h6>
-                    <p style="font-size: small;">Un medicamento es una sustancia química o un conjunto de sustancias químicas que se utilizan 
-                        para prevenir, diagnosticar, tratar o aliviar los síntomas de una enfermedad o condición médica 
-                        en los seres humanos o animales.</p>                
+                    <p style="font-size: small;">Un medicamento es una sustancia química o un conjunto de sustancias
+                        químicas que se utilizan
+                        para prevenir, diagnosticar, tratar o aliviar los síntomas de una enfermedad o condición médica
+                        en los seres humanos o animales.</p>
                 </div>
             </div>
             <div class="col">
-                <div class="formulario_medicamento">                    
+                <div class="formulario_medicamento">
                     <div class="form-group">
                         <label for="medicine_name" class="fw-medium">Nombre del Medicamento</label>
-                        <input type="text" id="medicine_name" name="medicine_name" class="form-control" required placeholder="Escribre el nombre del medicamento" style="border: 1px solid #52be80;">
+                        <input type="text" id="medicine_name" name="medicine_name" class="form-control" required
+                            placeholder="Escribre el nombre del medicamento" style="border: 1px solid #52be80;">
                     </div>
                     <br>
                     <div class="form-group">
                         <label for="description" class="fw-medium">Descripcion del Medicamento</label>
-                        <textarea name="medicine_description" id="medicine_description" class="form-control" rows="3" placeholder="Escribe la descripcion del medicamento" style="border: 1px solid #52be80;"></textarea>
+                        <textarea name="medicine_description" id="medicine_description" class="form-control" rows="3"
+                            placeholder="Escribe la descripcion del medicamento"
+                            style="border: 1px solid #52be80;"></textarea>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
         <hr>
         <!-- SECCION DE INFORMACION DE SEGUN SU CLASIFICACION-->
-        <div class="row" style="margin: 2rem 0;">            
+        <div class="row" style="margin: 2rem 0;">
             <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
                 <div class="clasificacion">
                     <h6>Clasificacion</h6>
-                    <p style="font-size: small;">Los medicamentos se pueden clasificar de diversas maneras según diferentes criterios, 
+                    <p style="font-size: small;">Los medicamentos se pueden clasificar de diversas maneras según
+                        diferentes criterios,
                         como su uso terapéutico y su forma de administración. </p>
                 </div>
             </div>
             <div class="col">
-                <div class="row">                    
+                <div class="row">
                     <div class="row">
                         <h6>Uso Terapeutico</h6>
                         <hr>
                         <div class="col-8">
-                            <div class="formulario_clasificacion_uso" id="usoTerapeutico">
-                                
+                            <div class="formulario_clasificacion_uso row row-cols-2" id="usoTerapeutico">
+
                             </div>
                         </div>
-                        <div class="col">                            
-                                {% include 'medicines/modal/modalUsoTerapeutico.html' %}
-                            
+                        <div class="col">
+                            {% include 'medicines/modal/modalUsoTerapeutico.html' %}
+
                         </div>
                     </div>
-                    
+
                     <div class="row" style="margin-top: 1rem;">
                         <h6>Forma de Administración</h6>
                         <hr>
                         <div class="col-8">
-                            <div class="formulario_clasificacion_forma" id="formaAdministracion">
-                                
-                                
+                            <div class="formulario_clasificacion_forma row row-cols-2" id="formaAdministracion">
+
+
                             </div>
                         </div>
-                        <div class="col">                            
-                            {% include 'medicines/modal/modalFormaAdministracion.html' %}                            
+                        <div class="col">
+                            {% include 'medicines/modal/modalFormaAdministracion.html' %}
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
-        
+
         </div>
         <hr>
         <!-- SECCION DE INFORMACION DEL PROVEEDOR -->
@@ -107,10 +117,12 @@
                 <div class="proveedor">
                     <h6>Proveedor</h6>
                     <p style="font-size: small;">
-                        Estos proveedores pueden ser fabricantes, distribuidores, mayoristas, minoristas u otros tipos de empresas 
-                        que proporcionan productos o servicios necesarios para el funcionamiento de un negocio o para satisfacer las necesidades de los consumidores.
-                        
-                    </p> 
+                        Estos proveedores pueden ser fabricantes, distribuidores, mayoristas, minoristas u otros tipos
+                        de empresas
+                        que proporcionan productos o servicios necesarios para el funcionamiento de un negocio o para
+                        satisfacer las necesidades de los consumidores.
+
+                    </p>
                 </div>
             </div>
             <div class="col">
@@ -118,29 +130,31 @@
                     <h6>Proveedores</h6>
                     <hr>
                     <div class="col-8">
-                        <div class="formulario_proveedor">                   
+                        <div class="formulario_proveedor">
                             <div class="form-group">
-                                <select  class="js-example-basic-single js-states form-control" id="id_label_single" name="proveedor_select"  style="border: 1px solid #52be80;width: 85%;">
-                                    
+                                <select class="js-example-basic-single js-states form-control" id="id_label_single"
+                                    name="proveedor_select" style="border: 1px solid #52be80;width: 85%;">
+
                                 </select>
-        
-                            </div>        
+
+                            </div>
                         </div>
                     </div>
                     <div class="col-2">
                         {% include 'medicines/modal/modalProveedor.html' %}
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <hr>
         <!-- SECCION DE INFORMACION DE PRESENTACION-->
-        <div class="row" style="margin: 2rem 0;">            
-            <div class="col-4"  style="border-right: 1px solid rgb(85, 84, 84,0.5);">
+        <div class="row" style="margin: 2rem 0;">
+            <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
                 <class class="informacion_presentacion">
                     <h6>Presentacion</h6>
-                    <p  style="font-size: small;">La presentación de un medicamento se refiere a la forma en que se presenta o se dispone el medicamento para su administración</p>
+                    <p style="font-size: small;">La presentación de un medicamento se refiere a la forma en que se
+                        presenta o se dispone el medicamento para su administración</p>
                 </class>
             </div>
             <div class="col">
@@ -149,15 +163,15 @@
                     <hr>
                     <div class="col-8">
                         <div class="presentacion" id="presentacion">
-                            
+
                         </div>
                     </div>
                     <div class="col">
                         {% include 'medicines/modal/modalPresentacion.html' %}
                     </div>
                 </div>
-                
-                
+
+
             </div>
         </div>
         <hr>
@@ -169,100 +183,112 @@
                 </div>
             </div>
             <div class="col">
-                <div class="formulario_extra_detalles">               
-                    <div class="row" >
+                <div class="formulario_extra_detalles">
+                    <div class="row">
                         <h6>Precios</h6>
                         <hr>
                         <div class="col-4">
-                            <div class="form-group">                                
+                            <div class="form-group">
                                 <label for="cost_price" class="fw-medium">Precio de costo</label>
                                 <div class="input-group">
-                                    <span class="input-group-text" style="border: 1px solid #52be80; color: #135233;">Q</span>
-                                    <input type="number" id="cost_price" class="form-control" name="cost_price" step="0.01" min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
-                                </div>                                
+                                    <span class="input-group-text"
+                                        style="border: 1px solid #52be80; color: #135233;">Q</span>
+                                    <input type="number" id="cost_price" class="form-control" name="cost_price"
+                                        step="0.01" min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
+                                </div>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="form-group">                                
+                            <div class="form-group">
                                 <label for="sale_price" class="fw-medium">Precio de venta</label>
                                 <div class="input-group">
-                                    <span class="input-group-text" style="border: 1px solid #52be80; color: #135233;">Q</span>
-                                    <input type="number" id="sale_price" class="form-control" name="sale_price" step="0.01" min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
-                                </div>                                
+                                    <span class="input-group-text"
+                                        style="border: 1px solid #52be80; color: #135233;">Q</span>
+                                    <input type="number" id="sale_price" class="form-control" name="sale_price"
+                                        step="0.01" min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
+                                </div>
                             </div>
-                        </div>                        
-                        
+                        </div>
+
                     </div>
                     <br>
                     <div class="row">
-                        
+
                         <div class="col-12">
                             <h6>Marca</h6>
                             <hr>
                             <div class="col-8">
                                 <div class="form-group">
                                     <label for="brand" class="fw-medium">Marca del Medicamento</label>
-                                    <input type="text" id="brand" name="brand" class="form-control" placeholder="Escribre la marca del medicamento" style="border: 1px solid #52be80;">
+                                    <input type="text" id="brand" name="brand" class="form-control"
+                                        placeholder="Escribre la marca del medicamento"
+                                        style="border: 1px solid #52be80;">
                                 </div>
                             </div>
-                            
+
                         </div>
-                        
-                        
+
+
                         <div class="col-12" style="margin-top: 1rem;">
                             <h6>Codigo</h6>
                             <hr>
                             <div class="col-8">
                                 <div class="form-group">
                                     <label for="code_medicine" class="fw-medium">Codigo del Medicamento</label>
-                                    <input type="text" id="code_medicine" name="code_medicine" class="form-control" placeholder="Escribre el codigo del medicamento" style="border: 1px solid #52be80;">
+                                    <input type="text" id="code_medicine" name="code_medicine" class="form-control"
+                                        placeholder="Escribre el codigo del medicamento"
+                                        style="border: 1px solid #52be80;">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <br>
-                    
+
                     <div class="row">
                         <h6>Cantidad a Registrar</h6>
                         <hr>
                         <div class="col-8 ">
                             <div class="form-group">
                                 <label for="cantidad" class="fw-medium">Cantidad</label>
-                                <input type="number" id="sale_price" class="form-control" name="cantidad"  min="0" style="border: 1px solid #52be80;">
+                                <input type="number" id="sale_price" class="form-control" name="cantidad" min="0"
+                                    style="border: 1px solid #52be80;">
                             </div>
                         </div>
 
-                    </div> 
-                    <br> 
+                    </div>
+                    <br>
                     <div class="row" style="margin-bottom: 2rem;">
                         <h6>Fecha de Vencimiento</h6>
                         <hr>
                         <div class="col-8">
                             <label for="fecha" class="fw-medium">Fecha de vencimiento</label>
-                            <input type="date" class="form-control" id="fecha" name="fecha_vencimiento" style="border: 1px solid #52be80;" >
+                            <input type="date" class="form-control" id="fecha" name="fecha_vencimiento"
+                                style="border: 1px solid #52be80;">
                         </div>
-                    </div             
+                    </div </div>
                 </div>
             </div>
-        </div>
-        <hr>
-        <!-- BOTONES-->
-        <div class="row" style="padding: 2.5rem;">
-            <div class="col" >
-                <div class="d-flex justify-content-end" >
-                               
-                    <a href="{% url 'medicines:index' %}" style="text-decoration: none; cursor: pointer;color: #15673f; margin-right: 1rem;"> CANCELAR</a>
-                   
-                    <button type="submit" class="btn" style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;" >AGREGAR</button> 
-    
+            <hr>
+            <!-- BOTONES-->
+            <div class="row" style="padding: 2.5rem;">
+                <div class="col">
+                    <div class="d-flex justify-content-end">
+
+                        <a href="{% url 'medicines:index' %}"
+                            style="text-decoration: none; cursor: pointer;color: #15673f; margin-right: 1rem;">
+                            CANCELAR</a>
+
+                        <button type="submit" class="btn"
+                            style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;">AGREGAR</button>
+
+                    </div>
                 </div>
+
             </div>
-            
-        </div>
 
     </form>
-    
-    
+
+
 </div>
 
 
@@ -277,101 +303,101 @@
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.js-select2').select2();
         $('.js-example-basic-single').select2({
-            lenguage:"es",
-            
-            ajax:{
-                type:'GET',
-                url:'http://127.0.0.1:8000/proveedor/api/proveedor/',
-                dataType:'json',
-                delay:250,
-                
-                processResults: function(data){
+            lenguage: "es",
+
+            ajax: {
+                type: 'GET',
+                url: 'http://127.0.0.1:8000/proveedor/api/proveedor/',
+                dataType: 'json',
+                delay: 250,
+
+                processResults: function (data) {
                     var resultado = [];
                     data.forEach(e => {
-                        if (e.last_name === null){
-                            resultado.push({id:e.id, text:e.first_name});
-                        }else{
-                            resultado.push({id:e.id, text:e.first_name +' '+ e.last_name});
+                        if (e.last_name === null) {
+                            resultado.push({ id: e.id, text: e.first_name });
+                        } else {
+                            resultado.push({ id: e.id, text: e.first_name + ' ' + e.last_name });
                         }
-                        
+
                     });
 
                     return {
-                        results:resultado
+                        results: resultado
                     }
                 },
-                cache:true,
+                cache: true,
             },
 
             placehorlder: 'Ingresa el nombre del proveedor...',
-            minimumInputLength:1
-           
+            minimumInputLength: 1
+
         });
-    
+
         $('.js-example-basic-multiple').select2();
         listarFormaAdministracion();
         listarUsoTerapeutico();
         listarPresentacion();
     });
 
-    function listarFormaAdministracion(){
+    function listarFormaAdministracion() {
         $.ajax({
-            type:'GET',
-            url:'http://127.0.0.1:8000/clasificacion/api/v1/forma-administracion/',
-            dataType:'json',
-            delay:250,
-            success: function(data){
-                data.forEach(e=>{
-                    var checkbox = $("<div class='form-group'> <div class='form-check'> <input type='checkbox' class='form-check-input' value='"+e.id+"' id = '"+e.id+"' name='opciones_forma[]' style='border:1px solid #52be80;'> <label class='form-check-label fw-medium' for='"+e.id+"'>"+e.type_adminstrationform+"</label></div></div>")
+            type: 'GET',
+            url: 'http://127.0.0.1:8000/clasificacion/api/v1/forma-administracion/',
+            dataType: 'json',
+            delay: 250,
+            success: function (data) {
+                data.forEach(e => {
+                    var checkbox = $("<div class='form-group'> <div class='form-check'> <input type='checkbox' class='form-check-input' value='" + e.id + "' id = '" + e.id + "' name='opciones_forma[]' style='border:1px solid #52be80;'> <label class='form-check-label fw-medium' for='" + e.id + "'>" + e.type_adminstrationform + "</label></div></div>")
                     $("#formaAdministracion").append(checkbox);
                 });
-                
+
             },
-            error: function(xhr,status,error){
-                console.error("ERROR EN LA SOLICITUD AJAX: "+error);
+            error: function (xhr, status, error) {
+                console.error("ERROR EN LA SOLICITUD AJAX: " + error);
             }
         });
     }
-    function listarUsoTerapeutico(){
+    function listarUsoTerapeutico() {
         $.ajax({
-            type:'GET',
-            url:'http://127.0.0.1:8000/clasificacion/api/v1/uso-terapeutico/',
-            dataType:'json',
-            delay:250,
-            success: function(data){
-                data.forEach(e=>{
-                    var checkbox = $("<div class='form-group'> <div class='form-check'> <input type='checkbox' class='form-check-input' value='"+e.id+"' id = '"+e.id+"' name='opciones_uso[]' style='border:1px solid #52be80;'> <label class='form-check-label fw-medium' for='"+e.id+"'>"+e.type_therepeuticuse+"</label></div></div>")
+            type: 'GET',
+            url: 'http://127.0.0.1:8000/clasificacion/api/v1/uso-terapeutico/',
+            dataType: 'json',
+            delay: 250,
+            success: function (data) {
+                data.forEach(e => {
+                    var checkbox = $("<div class='form-group'> <div class='form-check'> <input type='checkbox' class='form-check-input' value='" + e.id + "' id = '" + e.id + "' name='opciones_uso[]' style='border:1px solid #52be80;'> <label class='form-check-label fw-medium' for='" + e.id + "'>" + e.type_therepeuticuse + "</label></div></div>")
                     $("#usoTerapeutico").append(checkbox);
                 });
-                
+
             },
-            error: function(xhr,status,error){
-                console.error("ERROR EN LA SOLICITUD AJAX: "+error);
+            error: function (xhr, status, error) {
+                console.error("ERROR EN LA SOLICITUD AJAX: " + error);
             }
         });
     }
-    function listarPresentacion(){
+    function listarPresentacion() {
         $.ajax({
-            type:'GET',
-            url:'http://127.0.0.1:8000/presentacion/api/v1/',
-            dataType:'json',
-            delay:250,
-            success: function(data){
-                data.forEach(e=>{
-                    var checkbox = $("<div class='form-group'> <div class='form-check'> <input type='radio' class='form-check-input' value='"+e.id+"' id = '"+e.id+"' name='tipo_presentacion' style='border:1px solid #52be80;'> <label class='form-check-label fw-medium' for='"+e.id+"'>"+e.presentation_type+"</label></div></div>")
+            type: 'GET',
+            url: 'http://127.0.0.1:8000/presentacion/api/v1/',
+            dataType: 'json',
+            delay: 250,
+            success: function (data) {
+                data.forEach(e => {
+                    var checkbox = $("<div class='form-group'> <div class='form-check'> <input type='radio' class='form-check-input' value='" + e.id + "' id = '" + e.id + "' name='tipo_presentacion' style='border:1px solid #52be80;'> <label class='form-check-label fw-medium' for='" + e.id + "'>" + e.presentation_type + "</label></div></div>")
                     $("#presentacion").append(checkbox);
                 });
-                
+
             },
-            error: function(xhr,status,error){
-                console.error("ERROR EN LA SOLICITUD AJAX: "+error);
+            error: function (xhr, status, error) {
+                console.error("ERROR EN LA SOLICITUD AJAX: " + error);
             }
         });
     }
-    
+
 </script>
 
 {% endblock %}

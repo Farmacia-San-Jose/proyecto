@@ -14,14 +14,32 @@ checkbox_uso.innerHTML='';
 var checkbox_forma = document.getElementById('formaAdministracion');
 checkbox_forma.innerHTML='';
 
+// Precios
+var cost_price = document.getElementById('cost_price');
+var sale_price = document.getElementById('sale_price');
+
+// Marca
+var brand = document.getElementById('brand');
+
+// Codigo
+var code_medicine = document.getElementById('code_medicine');
+
+// Cantidad
+var cantidad = document.getElementById('cantidad');
+
+// Fecha
+var fecha = document.getElementById('fecha');
 
 // Detalle del medicamento
 const url_medicamento = 'http://127.0.0.1:8000/medicamentos/api/medicamentos/'+medicine_id+'/'
 const url_clasificacion = 'http://127.0.0.1:8000/clasificacion/api/v1/clasificacion/'
 const url_uso_terapeutico = 'http://127.0.0.1:8000/clasificacion/api/v1/uso-terapeutico/'
 const url_forma_administracion = 'http://127.0.0.1:8000/clasificacion/api/v1/forma-administracion/'
+const url_proveedor = 'http://127.0.0.1:8000/proveedor/api/proveedor/'
 
 
+const url_historial_medicamento = 'http://127.0.0.1:8000/medicamentos/api/historial-medicamento/'
+const url_historial_inventario = 'http://127.0.0.1:8000/ubicacion/api/v1/historial_inventario/'
 
 // Informacion del medicamento
 axios.get(url_medicamento).then(function (response){
@@ -41,6 +59,7 @@ axios.get(url_medicamento).then(function (response){
     console.error(error);
 });
 
+// Informacion segun su clasificacion
 function datos (){
     let listado_uso_terapeutico = []
     let listado_forma_administracion = []
@@ -97,7 +116,44 @@ function datos (){
 
 datos();
 
+function datos2(){
+    let listado_historial_medicamento = [];
+    let listado_historial_inventario = [];
 
+    axios.all([
+        axios.get(url_historial_medicamento),
+        axios.get(url_historial_inventario)
+    ])
+    .then(axios.spread((response, response2)=>{
+        listado_historial_medicamento = response.data;
+        listado_historial_inventario = response2.data;
+
+        listado_historial_medicamento.forEach(historial =>{
+            if(historial.medicine_id.id == medicine_id){
+                cost_price.value = historial.cost_price;
+                brand.value = historial.brand;
+                code_medicine.value = historial.medication_code;
+                fecha.value = historial.expiration_date;
+            }
+        });
+
+        listado_historial_inventario.forEach(inventario =>{
+            if( inventario.medicine_id == medicine_id){
+                sale_price.value = inventario.sale_price;
+                cantidad.value = inventario.quantity_stock;
+            }
+        });
+
+    })).catch( function(error){
+        console.error(error);
+    });
+}
+
+datos2();
+
+$(document).ready(function() {
+    $('.js-example-basic-single').select2();
+});
 
 
 

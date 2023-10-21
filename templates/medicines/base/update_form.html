@@ -12,12 +12,13 @@
 <!-- OBTENER EL ID DEL MEDICMANTO -->
 <input type="text" value="{{medicine.id}}" id="medicine_id" style="visibility: hidden;">
 <div class="row">
-    <h6>Actualizar {{medicine}}</h6>
+    <h3>Actualizar {{medicine}}</h3>
 </div>
 <hr>
 
 <form method="POST">
     {% csrf_token %}
+    <!--SECCION DE INFORMACION DE MEDICAMENTO-->
     <div class="row" style="margin-bottom:2rem ;">
 
         <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
@@ -64,7 +65,7 @@
                     <h6>Forma de Administración</h6>
                     <hr>
                     <div class="col-8">
-                        <div class="formulario_clasificacion_forma" id="formaAdministracion">
+                        <div class="formulario_clasificacion_forma row row-cols-2" id="formaAdministracion">
                         </div>
                     </div>
                     <div class="col">
@@ -77,10 +78,213 @@
 
     </div>
     <hr>
+    <!--SECCION DE INFORMACION DE PROVEEDOR-->
+    <div class="row" style="margin: 2rem 0;">
+        <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
+            <div class="proveedor">
+                <h6>Proveedor</h6>
+                <p style="font-size: small;">
+                    Estos proveedores pueden ser fabricantes, distribuidores, mayoristas, minoristas u otros tipos de empresas 
+                    que proporcionan productos o servicios necesarios para el funcionamiento de un negocio o para satisfacer las necesidades de los consumidores.
+                    
+                </p> 
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <h6>Proveedores</h6>
+                <hr>
+                <div class="col-8">
+                    <div class="formulario_proveedor">                   
+                        <div class="form-group">
+                                
+                                
+                            <select  class="js-example-basic-single js-states form-control" id="id_label_single" name="proveedor_select"  style="border: 1px solid #52be80;width: 85%;">
+                                {% for proveedor, historial in combinacion_list%}
+                                    {% if proveedor.id == historial.supplier_id.id %}
+                                        <option selected value="{{proveedor.id}}"> {{proveedor}}</option>
+                                    {% else %}
+                                        <option value="{{proveedor.id}}"> {{proveedor}}</option>
+
+                                    {% endif %}
+                                {% endfor%}
+                                
+                            </select>
+    
+                        </div>        
+                    </div>
+                </div>
+                <div class="col-2">
+                    {% include 'medicines/modal/modalProveedor.html' %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <hr>
+    <!-- SECCION DE INFORMACION DE PRESENTACION-->
+    <div class="row" style="margin: 2rem 0;">
+        <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
+            <class class="informacion_presentacion">
+                <h6>Presentacion</h6>
+                <p style="font-size: small;">La presentación de un medicamento se refiere a la forma en que se
+                    presenta o se dispone el medicamento para su administración</p>
+            </class>
+        </div>
+        <div class="col">
+            <div class="row">
+                <h6>Presentaciones</h6>
+                <hr>
+                <div class="col-8">
+                    <div class="presentacion" id="presentacion">
+                        {% for presentacion, historial_medico in combinacion_list_2%}                        
+                        <div class="form-group">
+                            <div class="form-check">
+                                
+                                {%  if presentacion.id == historial_medico.presentation_id.id %}
+                                <input checked type="radio" class="form-check-input" value="{{presentacion.id}}" id = "{{presentacion.id}}" name="tipo_presentacion" style="border:1px solid #52be80;"> 
+                                <label class="form-check-label fw-medium" for="{{presentacion.id}}"> {{presentacion.presentation_type}} </label>
+                                {% else %}
+                                <input type="radio" class="form-check-input" value="{{presentacion.id}}" id = "{{presentacion.id}}" name="tipo_presentacion" style="border:1px solid #52be80;"> 
+                                <label class="form-check-label fw-medium" for="{{presentacion.id}}"> {{presentacion.presentation_type}} </label>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div class="col">
+                    {% include 'medicines/modal/modalPresentacion.html' %}
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <hr>
+
+     <!-- SECCION DE MAS INFORMACION DEL MEDICAMENTO -->
+    <div class="row" style="margin: 2rem 0;">
+        <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
+            <div class="detallesMedicamentos">
+                <h6>Mas informacion sobre el Medicamento</h6>
+            </div>
+        </div>
+        <!-- FORMULARIO DE INFORMACION EXTRA -->
+        <div class="col">
+            <div class="formulario_extra_detalles">
+                <!-- FORMULARIO DE PRECIOS-->
+                <div class="row">
+                    <h6>Precios</h6>
+                    <hr>
+                    <!-- PRECIO DE COSTO-->
+                    <div class="col-4">                        
+                        <div class="form-group">
+                            <label for="cost_price" class="fw-medium">Precio de costo</label>
+                            <div class="input-group">
+                                <span class="input-group-text"
+                                    style="border: 1px solid #52be80; color: #135233;">Q</span>
+                                <input type="number" id="cost_price" class="form-control" name="cost_price"
+                                    step="0.01" min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <!-- PRECIO DE VENTA-->
+                        <div class="form-group">
+                            <label for="sale_price" class="fw-medium">Precio de venta</label>
+                            <div class="input-group">
+                                <span class="input-group-text"
+                                    style="border: 1px solid #52be80; color: #135233;">Q</span>
+                                <input type="number" id="sale_price" class="form-control" name="sale_price"
+                                    step="0.01" min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!-- FORMULARIO PARA LA MARCA-->
+                <div class="row">
+                    <!-- MARCA-->
+                    <div class="col-12">
+                        <h6>Marca</h6>
+                        <hr>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="brand" class="fw-medium">Marca del Medicamento</label>
+                                <input type="text" id="brand" name="brand" class="form-control"
+                                    placeholder="Escribre la marca del medicamento"
+                                    style="border: 1px solid #52be80;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <br>
+                    <!-- CODIGO -->
+                    <div class="col-12" style="margin-top: 1rem;">
+                        <h6>Codigo</h6>
+                        <hr>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label for="code_medicine" class="fw-medium">Codigo del Medicamento</label>
+                                <input type="text" id="code_medicine" name="code_medicine" class="form-control"
+                                    placeholder="Escribre el codigo del medicamento"
+                                    style="border: 1px solid #52be80;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!-- FORMULARIO DE CANTIDAD -->
+                <div class="row">
+                    <h6> Cantidad a Registrar</h6>
+                    <hr>
+                    <div class="col-8 ">
+                        <div class="form-group">
+                            <label for="cantidad" class="fw-medium">Cantidad</label>
+                            <input type="number" id="cantidad" class="form-control" name="cantidad" min="0"
+                                style="border: 1px solid #52be80;">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!-- FORMULARIO DE FECHA DE VENCIMIENTO -->
+                <div class="row">
+                    <h6>Fecha de Vencimiento</h6>
+                    <hr>
+                    <div class="col-8">
+                        
+                        <label for="fecha" class="fw-medium">Fecha de Vencimiento</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha_vencimiento" 
+                            style="border: 1px solid #52be80;">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <hr>
+    <!-- BOTONES-->
+    <div class="row" style="padding: 2.5rem;">
+        <div class="col">
+            <div class="d-flex justify-content-end">
+
+                <a href="{% url 'medicines:index' %}"
+                    style="text-decoration: none; cursor: pointer;color: #15673f; margin-right: 1rem;">
+                    CANCELAR</a>
+
+                <button type="submit" class="btn"
+                    style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;">AGREGAR</button>
+
+            </div>
+        </div>
+
+    </div>
 </form>
 
 {% endblock %}
 
 {% block js %}
-<script type="module" src="../../../static/js/medicines/api/update.js"></script>
+<script type="module" src="{% static "js/medicines/api/update.js" %}"></script>
 {% endblock%}
