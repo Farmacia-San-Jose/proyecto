@@ -13,7 +13,8 @@ urlpatterns = [
     path('',views.index,name='index'),
     #path('existence/',views.existence,name='existencia'),
     #path('defeated/',views.defeated, name='vencidos'),
-    path('agregar/', views.add, name='agregar')
+    path('agregar/', views.add, name='agregar'),
+    path('actualizar/<int:id>/', views.update, name='actualizar')
 ]
 
 urlpatterns+= routers.urlpatterns

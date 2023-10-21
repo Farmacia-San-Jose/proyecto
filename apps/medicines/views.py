@@ -174,4 +174,21 @@ def add(request):
 
     return render(request, 'medicines/base/form.html', context)
     
+
+# ------------- MODULO DE ACTULIZAR ---------------------
+def update(request, id):
+    medicina = get_object_or_404(MedicamentoModel, id=id)
+
+    clasificacion_list_m = Clasificacion.objects.all()
     
+    context = {
+            'title':'Actualizando {}'.format(medicina),
+            'medicine':medicina,
+            'clasificacion_list':clasificacion_list_m,
+            'usoterapeutico_list': UsoTerapeutico.objects.all()
+            
+    }
+    return render(request, 'medicines/base/update_form.html', context)
+
+    
+

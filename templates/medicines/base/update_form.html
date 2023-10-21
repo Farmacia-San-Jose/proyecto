@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+{% endblock %}
+
+{% block content %}
+<!-- OBTENER EL ID DEL MEDICMANTO -->
+<input type="text" value="{{medicine.id}}" id="medicine_id" style="visibility: hidden;">
+<div class="row">
+    <h6>Actualizar {{medicine}}</h6>
+</div>
+<hr>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="row" style="margin-bottom:2rem ;">
+
+        <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
+            <div class="titulo">
+                <h6>Medicamento</h6>
+                <p style="font-size: small;">Un medicamento es una sustancia química o un conjunto de sustancias
+                    químicas que se utilizan
+                    para prevenir, diagnosticar, tratar o aliviar los síntomas de una enfermedad o condición médica
+                    en los seres humanos o animales.</p>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="formulario_medicamento" id="formulario_medicamento">
+
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- SECCION DE INFORMACION DE SEGUN SU CLASIFICACION-->
+    <div class="row" style="margin: 2rem 0;">
+        <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
+            <div class="clasificacion">
+                <h6>Clasificacion</h6>
+                <p style="font-size: small;">Los medicamentos se pueden clasificar de diversas maneras según diferentes
+                    criterios,
+                    como su uso terapéutico y su forma de administración. </p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="row">
+                    <h6>Uso Terapeutico</h6>
+                    <hr>
+                    <div class="col-8">
+                        <div class="formulario_clasificacion_uso row row-cols-2" id="usoTerapeutico">
+                            
+
+                        </div>
+                    </div>
+                    <div class="col">
+                        {% include 'medicines/modal/modalUsoTerapeutico.html' %}
+
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 1rem;">
+                    <h6>Forma de Administración</h6>
+                    <hr>
+                    <div class="col-8">
+                        <div class="formulario_clasificacion_forma" id="formaAdministracion">
+
+
+                        </div>
+                    </div>
+                    <div class="col">
+                        {% include 'medicines/modal/modalFormaAdministracion.html' %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <hr>
+</form>
+
+{% endblock %}
+
+{% block js %}
+<script type="module" src="../../../static/js/medicines/api/update.js"></script>
+{% endblock%}
