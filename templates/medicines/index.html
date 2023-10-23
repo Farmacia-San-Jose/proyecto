@@ -92,21 +92,31 @@
             <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Codigo del <br>Medicamento</th>
                     <th scope="col">Nombre del <br>Medicamento</th>
                     <th scope="col">Presentacion <br></th>
                     <th scope="col">Precio </th>
                     
                     <th>Marca </th>
                     <th>Cantidad </th>
-                    <th>Fecha Vencimiento</th>
+                    <th>Fecha <br>Vencimiento</th>
                     <th>...</th>
                 </tr>
                 </thead>
                 <tbody>
                     {% for medicamento in medicamento_list%}    
                     <tr>
-                        <th scope="row">{{medicamento.id}}</th>
+                        <th scope="row">
+                            {%for historial_medico in historial_medico_list%}
+                                    {% if historial_medico.medicine_id.id == medicamento.id%}
+                                    
+                                    <p>{{historial_medico.medication_code}}</p>
+                                    
+                                                                        
+                                    {%endif%}
+                                    
+                            {% endfor %}
+                        </th>
                         <td>{{medicamento.medicine_name}}</td>
                         <td>
                             <ul>
@@ -170,11 +180,11 @@
                                 </a>
                               
                                 <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="#">Ver</a></li>
+                                  <li><a class="dropdown-item" href="{% url 'medicines:detalle' medicamento.id %}">Ver</a></li>
                                   <li><a class="dropdown-item" href="{% url 'medicines:actualizar' medicamento.id%}">Editar</a></li>
                                   <hr>
                                   <li>
-                                    <a class="dropdown-item" href="#" style="color: red;">Eliminar</a>
+                                    <a class="dropdown-item" href="{% url 'medicines:eliminar' medicamento.id%}" style="color: red;">Eliminar</a>
                                     
                         
                                 </li>

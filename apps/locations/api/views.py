@@ -18,22 +18,22 @@ from apps.locations.models import Seccion, Ubicacion, HistorialInvetario
 class UbicacionViewSet(viewsets.ModelViewSet):
     queryset = Ubicacion.objects.all()
     serializer_class = UbicacionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
 class SeccionViewSet(viewsets.ModelViewSet):
     queryset = Seccion.objects.all()
     serializer_class = SeccionSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
 class HistorialInventarioViewSet(viewsets.ModelViewSet):
     queryset = HistorialInvetario.objects.all()
     serializer_class = HistorialInvetarioSerializer
-    permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
 
 
 # GET - POST
 class HistorialInvetarioList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
     
     def get(self, request, format=None):
         locations = HistorialInvetario.objects.all()
@@ -49,7 +49,7 @@ class HistorialInvetarioList(APIView):
 
 # GET - PUT - DELETE
 class HistorialInvetarioDetail(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try:

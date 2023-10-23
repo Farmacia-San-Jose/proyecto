@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+{{medicine.medicine_name}}
+<br>
+{{medicine.description}}
+<br>
+{% for classifications in clasificacion%}
+    {{classifications.therepeuticuse_id}}
+    <br>
+    {{classifications.formadministration_id}}
+    <br>
+{% endfor %}
+<br>
+
+{% for historial_m in historial_medicamento%}
+    {{historial_m.supplier_id}}
+    <br>
+    {{historial_m.presentation_id}}
+    <br>
+    Q{{historial_m.cost_price}}
+    <br>
+    {{historial_m.medication_code}}
+    <br>
+    {{historial_m.brand}}
+    <br>
+    {{historial_m.expiration_date}}
+    <br>
+{% endfor %}
+<br>
+
+{% for historial_i in historial_inventario %}
+    {{historial_i.location_id}}
+    <br>
+    {{historial_i.quantity_stock}}
+    <br>
+    {{historial_i.row}}
+    <br>
+    {{historial_i.column}}
+    <br>
+    Q{{historial_i.sale_price}}
+    <br>
+    {{historial_i.locationsection_id}}
+    <br>
+
+{% endfor %}
+<br>
+{% endblock %}

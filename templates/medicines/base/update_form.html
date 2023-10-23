@@ -84,10 +84,12 @@
             <div class="proveedor">
                 <h6>Proveedor</h6>
                 <p style="font-size: small;">
-                    Estos proveedores pueden ser fabricantes, distribuidores, mayoristas, minoristas u otros tipos de empresas 
-                    que proporcionan productos o servicios necesarios para el funcionamiento de un negocio o para satisfacer las necesidades de los consumidores.
-                    
-                </p> 
+                    Estos proveedores pueden ser fabricantes, distribuidores, mayoristas, minoristas u otros tipos de
+                    empresas
+                    que proporcionan productos o servicios necesarios para el funcionamiento de un negocio o para
+                    satisfacer las necesidades de los consumidores.
+
+                </p>
             </div>
         </div>
         <div class="col">
@@ -95,30 +97,24 @@
                 <h6>Proveedores</h6>
                 <hr>
                 <div class="col-8">
-                    <div class="formulario_proveedor">                   
+                    <div class="formulario_proveedor">
                         <div class="form-group">
-                                
-                                
-                            <select  class="js-example-basic-single js-states form-control" id="id_label_single" name="proveedor_select"  style="border: 1px solid #52be80;width: 85%;">
-                                {% for proveedor, historial in combinacion_list%}
-                                    {% if proveedor.id == historial.supplier_id.id %}
-                                        <option selected value="{{proveedor.id}}"> {{proveedor}}</option>
-                                    {% else %}
-                                        <option value="{{proveedor.id}}"> {{proveedor}}</option>
 
-                                    {% endif %}
-                                {% endfor%}
-                                
+
+                            <select class="js-example-basic-single js-states form-control" id="proveedor_select"
+                                name="proveedor_select" style="border: 1px solid #52be80;width: 85%;">
+
+
                             </select>
-    
-                        </div>        
+
+                        </div>
                     </div>
                 </div>
                 <div class="col-2">
                     {% include 'medicines/modal/modalProveedor.html' %}
                 </div>
             </div>
-            
+
         </div>
     </div>
     <hr>
@@ -137,7 +133,7 @@
                 <hr>
                 <div class="col-8">
                     <div class="presentacion" id="presentacion">
-                        
+
 
                     </div>
                 </div>
@@ -151,7 +147,7 @@
     </div>
     <hr>
 
-     <!-- SECCION DE MAS INFORMACION DEL MEDICAMENTO -->
+    <!-- SECCION DE MAS INFORMACION DEL MEDICAMENTO -->
     <div class="row" style="margin: 2rem 0;">
         <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
             <div class="detallesMedicamentos">
@@ -166,15 +162,15 @@
                     <h6>Precios</h6>
                     <hr>
                     <!-- PRECIO DE COSTO-->
-                    <div class="col-4">                        
+                    <div class="col-4">
                         <div class="form-group">
                             <label for="cost_price" class="fw-medium">Precio de costo</label>
                             <div class="input-group">
                                 <span class="input-group-text"
                                     style="border: 1px solid #52be80; color: #135233;">Q</span>
-                                <input type="number" id="cost_price" class="form-control" name="cost_price"
-                                    step="0.01" min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
-                            </div>                            
+                                <input type="number" id="cost_price" class="form-control" name="cost_price" step="0.01"
+                                    min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
+                            </div>
                         </div>
                     </div>
                     <div class="col-4">
@@ -184,8 +180,8 @@
                             <div class="input-group">
                                 <span class="input-group-text"
                                     style="border: 1px solid #52be80; color: #135233;">Q</span>
-                                <input type="number" id="sale_price" class="form-control" name="sale_price"
-                                    step="0.01" min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
+                                <input type="number" id="sale_price" class="form-control" name="sale_price" step="0.01"
+                                    min="0" style="border: 1px solid #52be80;" placeholder="QQQ">
                             </div>
                         </div>
                     </div>
@@ -201,8 +197,7 @@
                             <div class="form-group">
                                 <label for="brand" class="fw-medium">Marca del Medicamento</label>
                                 <input type="text" id="brand" name="brand" class="form-control"
-                                    placeholder="Escribre la marca del medicamento"
-                                    style="border: 1px solid #52be80;">
+                                    placeholder="Escribre la marca del medicamento" style="border: 1px solid #52be80;">
                             </div>
                         </div>
 
@@ -216,8 +211,7 @@
                             <div class="form-group">
                                 <label for="code_medicine" class="fw-medium">Codigo del Medicamento</label>
                                 <input type="text" id="code_medicine" name="code_medicine" class="form-control"
-                                    placeholder="Escribre el codigo del medicamento"
-                                    style="border: 1px solid #52be80;">
+                                    placeholder="Escribre el codigo del medicamento" style="border: 1px solid #52be80;">
                             </div>
                         </div>
                     </div>
@@ -241,28 +235,99 @@
                     <h6>Fecha de Vencimiento</h6>
                     <hr>
                     <div class="col-8">
-                        
+
                         <label for="fecha" class="fw-medium">Fecha de Vencimiento</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha_vencimiento" 
+                        <input type="date" class="form-control" id="fecha" name="fecha_vencimiento"
                             style="border: 1px solid #52be80;">
-                        
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    <hr>
+    <!-- SECCION DE UBICACION -->
+    <div class="row" style="margin: 2rem 0;">
+        <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
+            <div class="ubicacion">
+                <h6>Ubicacion de Medicamento</h6>
+                <p style="font-size: small;">Un registro de ubicación de un medicamento se refiere a la información
+                    detallada que se guarda sobre dónde se almacenan los medicamentos. Este registro es fundamental
+                    para un sistema de gestión de inventario eficiente, especialmente en entornos donde se manejan
+                    grandes volúmenes de medicamentos o donde es necesario garantizar la seguridad y precisión en el
+                    almacenamiento y dispensación de medicamentos. </p>
+            </div>
+        </div>
+        <div class="col">
+            <!-- Fila y Columna-->
+            <div class="row">
+                <h6>Ubicacion</h6>
+                <hr>
+                <div class="col-6">
+                    <h6>Fila</h6>
+                    <hr>
+                    <input type="number" class="form-control" min="0" name="fila" id="fila"
+                        placeholder="Ingrese la fila en que estara ubicado el medicamento" 
+                        style="border: 1px solid #52be80;">
+                </div>
+                <div class="col-6">
+                    <h6>Columna</h6>
+                    <hr>
+                    <input type="number" class="form-control" min="0" name="column" id="column"
+                        placeholder="Ingrese la columna en que estara ubicado el medicamento" 
+                        style="border: 1px solid #52be80;">
+                </div>
+
+            </div>
+            <br>
+            <!-- UBICACION-->
+            <div class="row">
+                <h6>Lugar</h6>
+                <hr>
+                <div class="col-8">
+                    <select class="ubicacion_selector form-control" name="ubicacion" id="ubicacions" style="width: 85%;">
+
+                    </select>
+                </div>
+                <div class="col-4">
+                    {% include 'medicines/modal/modalUbicacion.html'%}
+                </div>
+
+            </div>
+            <br>
+            <!-- SECCION-->
+            <div class="row">
+                <h6>Seccion</h6>
+                <hr>
+                <div class="col-8">
+                    <select class="seccion_selector form-control" name="seccion" id="seccion" style="width: 85%;">
+
+                    </select>
+                </div>
+                <div class="col-4">
+                    {% include 'medicines/modal/modalSeccion.html'%}
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </div>
+    
     <hr>
     <!-- BOTONES-->
     <div class="row" style="padding: 2.5rem;">
         <div class="col">
             <div class="d-flex justify-content-end">
+                <input type="text" id="resultado" name="resultado" style="visibility: hidden;">
 
                 <a href="{% url 'medicines:index' %}"
                     style="text-decoration: none; cursor: pointer;color: #15673f; margin-right: 1rem;">
                     CANCELAR</a>
 
+
                 <button type="submit" class="btn"
-                    style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;">AGREGAR</button>
+                    style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;"
+                    id="btn_actualizar">ACTUALIZAR</button>
 
             </div>
         </div>
@@ -273,5 +338,6 @@
 {% endblock %}
 
 {% block js %}
-<script type="module" src="{% static "js/medicines/api/list_for_update.js" %}"></script>
+<script type="module" src="{% static 'js/medicines/api/list_for_update.js'%}"></script>
+<script type="module" src="{% static 'js/medicines/api/update.js' %}"></script>
 {% endblock%}

@@ -182,12 +182,15 @@
                     <h6>Mas informacion sobre el Medicamento</h6>
                 </div>
             </div>
+
             <div class="col">
                 <div class="formulario_extra_detalles">
+                    <!-- SECCION DE PRECIOS -->
                     <div class="row">
                         <h6>Precios</h6>
                         <hr>
                         <div class="col-4">
+                            <!-- PRECIO DE COSTO-->
                             <div class="form-group">
                                 <label for="cost_price" class="fw-medium">Precio de costo</label>
                                 <div class="input-group">
@@ -199,6 +202,7 @@
                             </div>
                         </div>
                         <div class="col-4">
+                            <!-- PRECIO DE VENTA -->
                             <div class="form-group">
                                 <label for="sale_price" class="fw-medium">Precio de venta</label>
                                 <div class="input-group">
@@ -209,11 +213,11 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <br>
+                    <!-- SECCION DE MARCA y CODIGO DE MEDICAMENTO-->
                     <div class="row">
-
+                        <!-- SECCION DE MARCA-->
                         <div class="col-12">
                             <h6>Marca</h6>
                             <hr>
@@ -225,10 +229,8 @@
                                         style="border: 1px solid #52be80;">
                                 </div>
                             </div>
-
                         </div>
-
-
+                        <!-- SECCION DE CODIGO DE MEDICAMENTO -->
                         <div class="col-12" style="margin-top: 1rem;">
                             <h6>Codigo</h6>
                             <hr>
@@ -243,7 +245,7 @@
                         </div>
                     </div>
                     <br>
-
+                    <!--SECCION DE CANTIDAD -->
                     <div class="row">
                         <h6>Cantidad a Registrar</h6>
                         <hr>
@@ -254,9 +256,9 @@
                                     style="border: 1px solid #52be80;">
                             </div>
                         </div>
-
                     </div>
                     <br>
+                    <!-- SECCION DE FECHA DE VENCIMIENTO -->
                     <div class="row" style="margin-bottom: 2rem;">
                         <h6>Fecha de Vencimiento</h6>
                         <hr>
@@ -265,26 +267,94 @@
                             <input type="date" class="form-control" id="fecha" name="fecha_vencimiento"
                                 style="border: 1px solid #52be80;">
                         </div>
-                    </div </div>
-                </div>
-            </div>
-            <hr>
-            <!-- BOTONES-->
-            <div class="row" style="padding: 2.5rem;">
-                <div class="col">
-                    <div class="d-flex justify-content-end">
-
-                        <a href="{% url 'medicines:index' %}"
-                            style="text-decoration: none; cursor: pointer;color: #15673f; margin-right: 1rem;">
-                            CANCELAR</a>
-
-                        <button type="submit" class="btn"
-                            style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;">AGREGAR</button>
-
                     </div>
                 </div>
-
             </div>
+
+        </div>
+        <hr>
+        <!-- SECCION DE UBICACION -->
+        <div class="row" style="margin: 2rem 0;">
+            <div class="col-4" style="border-right: 1px solid rgb(85, 84, 84,0.5);">
+                <div class="ubicacion">
+                    <h6>Ubicacion de Medicamento</h6>
+                    <p style="font-size: small;">Un registro de ubicación de un medicamento se refiere a la información
+                        detallada que se guarda sobre dónde se almacenan los medicamentos. Este registro es fundamental
+                        para un sistema de gestión de inventario eficiente, especialmente en entornos donde se manejan
+                        grandes volúmenes de medicamentos o donde es necesario garantizar la seguridad y precisión en el
+                        almacenamiento y dispensación de medicamentos. </p>
+                </div>
+            </div>
+            <div class="col">
+                <!-- Fila y Columna-->
+                <div class="row">
+                    <h6>Ubicacion</h6>
+                    <hr>
+                    <div class="col-6">
+                        <h6>Fila</h6>
+                        <hr>
+                        <input type="text" name="fila" id="fila" placeholder="Ingrese la fila en que estara ubicado el medicamento" class="form-control" style="border: 1px solid #52be80;">
+                    </div>
+                    <div class="col-6">
+                        <h6>Columna</h6>
+                        <hr>
+                        <input type="text" name="column" id="column" placeholder="Ingrese la columna en que estara ubicado el medicamento" class="form-control" style="border: 1px solid #52be80;">
+                    </div>
+
+                </div>
+                <br>
+                <!-- UBICACION-->
+                <div class="row">
+                    <h6>Lugar</h6>
+                    <hr>
+                    <div class="col-8">
+                        <select class="ubicacion_selector form-control" name="ubicacion" id="ubicacion" style="width: 85%;">
+
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        {% include 'medicines/modal/modalUbicacion.html'%}
+                    </div>
+
+                </div>
+                <br>
+                <!-- SECCION-->
+                <div class="row">
+                    <h6>Seccion</h6>
+                    <hr>
+                    <div class="col-8">
+                        <select class="seccion_selector form-control" name="seccion" id="seccion" style="width: 85%;">
+
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        {% include 'medicines/modal/modalSeccion.html'%}
+                    </div>
+                </div>
+                <br>
+                
+            </div>
+        </div>
+        <hr>
+        <!-- BOTONES-->
+        <div class="row" style="padding: 2.5rem;">
+            <div class="col">
+                <div class="d-flex justify-content-end">
+                    <input type="text" id="resultado" name="resultado" style="visibility: hidden;">
+
+                    <a href="{% url 'medicines:index' %}"
+                        style="text-decoration: none; cursor: pointer;color: #15673f; margin-right: 1rem;">
+                        CANCELAR</a>
+
+                    <button type="submit" id="btn_actualizar" class="btn"
+                        style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;">AGREGAR</button>
+
+                </div>
+            </div>
+
+        </div>
+
+
 
     </form>
 
@@ -300,11 +370,51 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
+<script type="module" src="{% static 'js/medicines/api/update.js' %}"></script>
 <script>
     $(document).ready(function () {
-        $('.js-select2').select2();
+        $('.seccion_selector').select2({
+            ajax:{
+                type:'GET',
+                url:'http://127.0.0.1:8000/ubicacion/api/v1/seccion/',
+                dataType:'json',
+                delay:250,
+                processResults: function (data) {
+                    var resultado = [];
+                    data.forEach(e => {
+                        resultado.push({ id: e.id, text: e.location_section });
+                    });
+
+                    return {
+                        results: resultado
+                    }
+                },
+                cache: true,
+            }
+        });
+
+        $('.ubicacion_selector').select2({
+            ajax: {
+                type: 'GET',
+                url: 'http://127.0.0.1:8000/ubicacion/api/v1/ubicacion/',
+                dataType: 'json',
+                delay: 250,
+                processResults: function (data) {
+                    var resultado = [];
+                    data.forEach(e => {
+                        resultado.push({ id: e.id, text: e.type_location });
+
+
+                    });
+
+                    return {
+                        results: resultado
+                    }
+                },
+                cache: true,
+            }
+        });
+
         $('.js-example-basic-single').select2({
             lenguage: "es",
 

@@ -14,7 +14,9 @@ urlpatterns = [
     #path('existence/',views.existence,name='existencia'),
     #path('defeated/',views.defeated, name='vencidos'),
     path('agregar/', views.add, name='agregar'),
-    path('actualizar/<int:id>/', views.update, name='actualizar')
+    path('actualizar/<int:id>/', views.update, name='actualizar'),
+    path('eliminar/<int:id>/', views.delete, name='eliminar'),
+    path('detalle/<int:id>/', views.detail, name='detalle'),
 ]
 
 urlpatterns+= routers.urlpatterns
