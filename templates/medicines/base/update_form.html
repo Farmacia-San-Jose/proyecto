@@ -340,4 +340,10 @@
 {% block js %}
 <script type="module" src="{% static 'js/medicines/api/list_for_update.js'%}"></script>
 <script type="module" src="{% static 'js/medicines/api/update.js' %}"></script>
+<script>
+    $(document).ready(function () {
+        $('.ubicacion_selector').select2();
+        $('.seccion_selector').select2();
+    });
+</script>
 {% endblock%}

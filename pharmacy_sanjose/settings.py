@@ -102,7 +102,7 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
+""" 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -110,11 +110,11 @@ DATABASES = {
     }
 }
 
-
+"""
 
 import pharmacy_sanjose.db as db
 
-#DATABASES = db.MYSQL
+DATABASES = db.MYSQL
 
 
 # Password validation
