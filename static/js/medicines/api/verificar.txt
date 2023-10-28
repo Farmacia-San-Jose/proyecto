@@ -1,50 +1,13 @@
-import urls from './urls.js';
-
-const btn_actualizar = document.getElementById('btn_actualizar');
-
-const medicine_id = document.getElementById('medicine_id').value
-const medicamento = {
-    id: medicine_id,
-    medicine_name:document.getElementById('medicine_name'),
-    description:document.getElementById('medicine_description')
-};
-
-const clasificacion = {
-    classification_id:'',
-    medicine_id: medicine_id,
-    formadministration_id:document.getElementById('opciones_forma[]'),
-    therapeuticuse_id:document.getElementById('opciones_uso[]')
-
-};
-
-const historial_inventario ={
-    inventoryhistory_id:'',
-    medicine_id:medicine_id,
-    quantity_stock:document.getElementById('cantidad'),
-    sale_price :document.getElementById('sale_price'),
-};
-
-const historial_medicamento ={
-    medicationhistory_id:'',
-    medicine_id:medicine_id,
-    supplier_id:document.getElementById('proveedor_select'),
-    cost_price:document.getElementById('cost_price'),
-    brand:document.getElementById('brand'),
-    presentation_id: document.getElementById('tipo_presentacion'),
-    expiration_date : document.getElementById('fecha'),
-    medication_code:document.getElementById('code_medicine')
-}
-
-
-let api_medicamento = urls.api_url_medicamento+medicine_id+"/"
-
-let description = document.getElementById('medicine_description');
-
-console.log(description)
-
-/*
-btn_actualizar.addEventListener('click',()=>{
-    
-    axios.put(api_medicamento)
-
-});*/
+'emerald': {
+    '50': '#effaf3',
+    '100': '#d7f4df',
+    '200': '#b2e8c4',
+    '300': '#80d5a1',
+    '400': '#52be80',
+    '500': '#29a060',
+    '600': '#1a814b',
+    '700': '#15673f',
+    '800': '#135233',
+    '900': '#11432c',
+    '950': '#082619',
+},

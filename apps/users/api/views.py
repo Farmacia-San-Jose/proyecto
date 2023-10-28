@@ -20,12 +20,12 @@ from apps.users.models import User
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
 
 
 # GET - POST
 class UserList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         users = User.objects.all()
@@ -44,7 +44,7 @@ class UserList(APIView):
 
 # GET - PUT - DELETE
 class UserDetail(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
     def get_object(self, pk):
         try:
             return User.objects.get(pk=pk)

@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import Http404
 
 # API
-from rest_framework import viewsets, status, generics, permissions
+from rest_framework import viewsets, status, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -31,7 +31,7 @@ class HistorialMedicamentoViewSet(viewsets.ModelViewSet):
 # ------------------------- MEDICAMENTO -----------------------------
 class MedicamentoList(APIView):
     # GET Y POST
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         medicine = Medicamento.objects.all()
@@ -46,7 +46,7 @@ class MedicamentoList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MedicamentoDetail(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self,pk):
         try:
@@ -80,7 +80,7 @@ class MedicamentoDetail(APIView):
 #-------------- HISTORIAL MEDICAMENTO ----------------------
 class HistorialMedicamentoList(APIView):
     # GET Y POST
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         medicine = HistorialMedicamento.objects.all()
@@ -95,7 +95,7 @@ class HistorialMedicamentoList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class HistorialMedicamentoDetail(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self,pk):
         try:

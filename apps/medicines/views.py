@@ -1,5 +1,6 @@
 # URL
 from django.shortcuts import render, redirect, get_object_or_404
+from rest_framework.authtoken.models import Token
 
 # CODIGOS HTTP
 from django.http import Http404
@@ -132,6 +133,7 @@ def guardar(request):
 #------- LISTAR TODOS LOS MEDICAMENTOS REGISTRADOS
 @login_required
 def index(request):
+    
     
     medicine_list = MedicamentoModel.objects.all()
     # OBTENER UBICACIONES

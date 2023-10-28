@@ -24,7 +24,7 @@ function verificarCheckboxes(checkboxes) {
     
 }
 
-console.log(document.getElementsByName('opciones_uso[]'));
+
 
 
 btn_actualizar.addEventListener('click', function () {

@@ -18,18 +18,18 @@ from apps.transactions.models import HistorialTransaccion, DetalleTransaccion
 class HistorialTransaccionViewSet(viewsets.ModelViewSet):
     queryset = HistorialTransaccion.objects.all()
     serializer_class = HistorialTransaccionSerializer
-    permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
 
 class DetalleTransaccionViewSet(viewsets.ModelViewSet):
     queryset = DetalleTransaccion.objects.all()
     serializer_class = DetalleTransaccionSerializer
-    permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
 
 # ----------------- TRANSACTION ---------------------
 
 # GET-POST
 class HistorialTransaccionList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         transaction = HistorialTransaccion.objects.all()
@@ -45,7 +45,7 @@ class HistorialTransaccionList(APIView):
     
 # GET - PUT - DELETE
 class HistorialTransaccionDetail(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try:
@@ -78,7 +78,7 @@ class HistorialTransaccionDetail(APIView):
 # ------------------- DETAIL TRANSACTION -----------
 # GET-POST
 class DetailTransaccionList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         transaction = DetalleTransaccion.objects.all()
@@ -94,7 +94,7 @@ class DetailTransaccionList(APIView):
     
 # GET - PUT - DELETE
 class DetailTransaccionDetail(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try:

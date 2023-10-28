@@ -1,4 +1,7 @@
-<button type="button" class="btn" style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;" data-bs-toggle="modal" data-bs-target="#addForma">Agregar Otro
+{% load static %}
+
+<button type="button" class="btn" style="background-color:#29a060; color:#effaf3; font-size: small; width: 10rem;"
+    data-bs-toggle="modal" data-bs-target="#addForma">Agregar Otro
     Uso Terapeutico</button>
 <div class="modal fade" tabindex="-1" id="addForma" aria-labelledby="addForma" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -7,15 +10,34 @@
                 <h5>Agregar Uso Terapeutico</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>FORMULARIO DSADAS</p>
+            <form name="formulario_uso" id="formulario_uso">
+                <div class="modal-body">
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+                    <div class="form-group">
+                        <label class="form-label" for="tipo_uso_terapeutico">Tipo de uso terapeutico </label>
+                        <input id="tipo_uso_terapeutico" type="text" class="form-control">
+
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="description">Descripcion</label>
+                        <textarea name="description_uso" id="description_uso" rows="3" class="form-control"></textarea>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn " data-bs-dismiss="modal"
+                        style="border: 1px solid #80d5a1; color: #082619;">Close</button>
+                    <button type="button" onclick="enviarDatos()" class="btn"
+                        style="background-color: #52be80; color: #effaf3;">Save changes</button>
+                </div>
+            </form>
+
+
+
         </div>
     </div>
 
 </div>
+
+<script type="module" src="{% static 'js/medicines/api/method_post_for_therapeutic_use.js' %}"></script>

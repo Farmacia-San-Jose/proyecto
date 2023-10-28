@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import Http404
 
 # API
-from rest_framework import viewsets, permissions, status
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -17,11 +17,11 @@ from apps.presentations.models import Presentacion
 class PresentacionviewSet(viewsets.ModelViewSet):
     queryset = Presentacion.objects.all()
     serializer_class = PresentacionSerializer
-    permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAdminUser,permissions.IsAuthenticated]
 
 # GET - POST
 class PresentacionList(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request,format=None):
         presentation = Presentacion.objects.all()
@@ -37,7 +37,7 @@ class PresentacionList(APIView):
 
 # GET - PUT -DELETE
 class PresentacionDetail(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self, pk):
         try:
