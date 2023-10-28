@@ -302,12 +302,15 @@ def update(request, id):
             print('Volviendo a ingresar datos')
             return redirect('medicines:actualizar',str(id))
     
+    
+    
     context = {
             'title':'Actualizando {}'.format(medicina),
             'medicine':medicina,
             'combinacion_list':combinar,
             'combinacion_list_2':combinar2,
-            'historial_mediamento_list':historial_mediamento_list,     
+            'historial_mediamento_list':historial_mediamento_list,    
+            'ruta_url':request.path, 
     }
     return render(request, 'medicines/base/update_form.html', context)
 

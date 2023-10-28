@@ -10,12 +10,13 @@
                 <h5>Agregar Uso Terapeutico</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form name="formulario_uso" id="formulario_uso">
+            <form method="POST" action="{% url 'classifications:agregar' %}">
+                {% csrf_token %}
                 <div class="modal-body">
 
                     <div class="form-group">
                         <label class="form-label" for="tipo_uso_terapeutico">Tipo de uso terapeutico </label>
-                        <input id="tipo_uso_terapeutico" type="text" class="form-control">
+                        <input id="tipo_uso_terapeutico" name="tipo_uso_terapeutico" type="text" class="form-control">
 
                     </div>
                     <div class="form-group">
@@ -26,9 +27,10 @@
 
                 </div>
                 <div class="modal-footer">
+                    <input type="hidden" value="{{ruta_url}}" name="redireccionar" >
                     <button type="button" class="btn " data-bs-dismiss="modal"
                         style="border: 1px solid #80d5a1; color: #082619;">Close</button>
-                    <button type="button" onclick="enviarDatos()" class="btn"
+                    <button type="submit" onclick="enviarDatos()" class="btn"
                         style="background-color: #52be80; color: #effaf3;">Save changes</button>
                 </div>
             </form>
@@ -40,4 +42,3 @@
 
 </div>
 
-<script type="module" src="{% static 'js/medicines/api/method_post_for_therapeutic_use.js' %}"></script>
