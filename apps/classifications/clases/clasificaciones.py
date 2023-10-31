@@ -135,17 +135,11 @@ class Clasificacion:
 
   @property
   def forma_administracion(self):
-    listF = []
-    for forma in self._type_administrationform_id:
-      forma_dic = {
-          'id': forma.id,
-          'type_administrationform': forma.type_administrationform,
-          'description': forma.description
-      }
-      listF.append(forma_dic)
-      
-
-    return listF
+    return self._type_administrationform_id.diccionario
+  
+  @property
+  def uso_terapeutico(self):
+    return self._type_therepeuticuse_id.diccionario
   
   @property
   def diccionario(self):
@@ -156,31 +150,6 @@ class Clasificacion:
     self._clasificacion_dic['uso_terapeutico']=self.uso_terapeutico
 
     return self._clasificacion_dic
-
-
-
-  @property
-  def uso_terapeutico(self):
-    listU = []
-    for uso in self._type_therepeuticuse_id:
-      use_dic = {
-          'id': uso.id,
-          'type_therepeuticuse': uso.type_therepeuticuse,
-          'description': uso.description
-      }
-      listU.append(use_dic)
-      
-      
-    return listU
-
-
-# ---------- METODOS
-
-  def agregar_forma_administracion(self, type_administrationform):
-    self._type_administrationform_id.append(type_administrationform)
-
-  def agregar_uso_terapeeutico(self, type_therepeuticuse):
-    self._type_therepeuticuse_id.append(type_therepeuticuse)
 
 
   def __str__(self):

@@ -2,7 +2,7 @@ import json
 
 class Proveedor:
     contador = 0
-    def __init__(self, id, first_name, last_name,company = None,telephone=None, email=None):
+    def __init__(self, id, first_name = None, last_name = None,company = None,telephone=None, email=None):
         Proveedor.contador+=1
         self._contador = Proveedor.contador
         self._id = id

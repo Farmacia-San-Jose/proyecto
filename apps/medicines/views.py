@@ -11,8 +11,8 @@ from django.shortcuts import render
 from django.db import transaction
 from django.contrib.auth.decorators import login_required
 
-# CONSULTA
-from .consultas.resultado_consulta import listar, existencia, vencidos
+# UNION
+from apps.medicines.consultas.unir_datos import informacion_completa_medicamento
 
 
 # MODEL
@@ -26,8 +26,7 @@ from django.db.models import Q
 # PAGINACION
 from .pagination import paginacion
 
-# CLASES
-from apps.medicines.clases.medicamentos import listar_medicamento, listar_historial_medicamento
+
 
 import json
 import itertools
@@ -133,8 +132,7 @@ def guardar(request):
 #------- LISTAR TODOS LOS MEDICAMENTOS REGISTRADOS
 @login_required
 def index(request):
-    
-    
+
     medicine_list = MedicamentoModel.objects.all()
     # OBTENER UBICACIONES
     ubicacion_list = Ubicacion.objects.all()
@@ -143,7 +141,7 @@ def index(request):
     clasificacion_list = Clasificacion.objects.all()
 
     # OBTENER EL HISTORIAL DEL MEDICAMENTO
-    historial_medico_list = listar_historial_medicamento()
+    historial_medico_list = HistorialMedicamentoModel.objects.all()
 
     # OBTENER EL HISTORIAL DE INVENTARIO
     historial_inventario_list = HistorialInvetario.objects.all()

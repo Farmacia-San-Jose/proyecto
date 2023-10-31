@@ -60,7 +60,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         {% for ubicacion in ubicacion_list %}
-                        <li><a class="dropdown-item" href="#">{{ubicacion.type_location}}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'locations:listar_ubicacion' ubicacion.id%} ">{{ubicacion.type_location}}</a></li>
                         {% endfor %}
                       
                       

@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <!-- SECCION DE INFORMACION EN DONDE ESTAMOS UBICADOS-->
+    <div class="row">        
+        <h3>{{ubicacion}}</h3>
+        <p>En esta seccion se encuentran registrado un total de: <span> {{cantidad}}</span> elementos </p>
+    </div>
+    <hr>
+</div>
+
+<div class="row" style="margin-top: 1rem;">
+    <div class="col">
+        <div class="d-flex justify-content-start">
+            <form class="d-flex" role="search">
+                <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg>
+                    </span>
+                    <input type="text" class="form-control" placeholder="search" aria-label="Username" aria-describedby="addon-wrapping">
+                  </div>
+            </form>
+            <div class="dropdown" style="margin-left: 0.5rem;">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Clasificacion
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Uso Terapeutico</a></li>
+                  <li><a class="dropdown-item" href="#">Forma de Administracion</a></li>
+                  
+                </ul>
+            </div>
+            <div class="dropdown" style="margin-left: 0.5rem;">
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Ubicacion
+                </button>
+                <ul class="dropdown-menu">
+                    {% for ubicacion in ubicacion_list %}
+                    <li><a class="dropdown-item" href="{% url 'locations:listar_ubicacion' ubicacion.id%} ">{{ubicacion.type_location}}</a></li>
+                    {% endfor %}
+                  
+                  
+                  
+                </ul>
+            </div>
+
+        </div> 
+    </div>
+    <div class="col">
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-success" href="{% url 'medicines:agregar' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Agregar Medicamento
+            </a>
+
+        </div>
+    </div>
+
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-12">
+        
+        
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Codigo del <br>Medicamento</th>
+                <th scope="col">Nombre del <br>Medicamento</th>
+                <th scope="col">Presentacion <br></th>
+                <th scope="col">Precio </th>
+                
+                <th>Marca </th>
+                <th>Seccion </th>
+                <th>Fecha <br>Vencimiento</th>
+                <th>...</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for medicamento in medicamento_list %}
+                <tr>
+                    <td></td> <!-- Esta informacion viene del historial de medicamentos-->
+                    <td>{{medicamento.medicine_id.medicine_name}}</td>
+                    <td></td><!-- Esta informacion viene del historial de medicamentos-->
+                    <td>Q{{medicamento.sale_price}}</td>
+                    <td></td><!-- Esta informacion viene del historial de medicamentos-->
+                    <td>
+                        <div class="justify-content-center" >
+                            <ul class="list-group">
+                                <li class="list-group-item" style="border: 1px solid #15673f; color: #15673f; background-color: #d7f4df;">Seccion: {{medicamento.locationsection_id.location_section}}</li>
+                                <li class="list-group-item" style="border:1px solid #15673f; color: #15673f;">Cantidad: {{medicamento.quantity_stock}} </li>
+                                <li class="list-group-item">Fila: {{medicamento.row}}</li>
+                                <li class="list-group-item">Columna: {{medicamento.column}}</li>
+                                
+                            </ul>
+
+                        </div>
+                        
+                    </td>
+                    <td></td><!-- Esta informacion viene del historial de medicamentos-->
+                    <td>
+                        <div class="dropdown">
+                            <a  href="#" class="badge text-bg-light " role="button" data-bs-toggle="dropdown" aria-expanded="false" style="text-decoration: none;">
+                                ...
+                            </a>
+                          
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="{% url 'medicines:detalle' medicamento.id %}">Ver</a></li>
+                              <li><a class="dropdown-item" href="{% url 'medicines:actualizar' medicamento.id%}">Editar</a></li>
+                              <hr>
+                              <li>
+                                <a class="dropdown-item" href="{% url 'medicines:eliminar' medicamento.id%}" style="color: red;">Eliminar</a>
+                                
+                    
+                            </li>
+                            </ul>
+                          </div>
+                    </td>
+                </tr>
+                {% endfor %}
+             
+              
+            </tbody>
+          </table>
+    </div>
+   
+</div>
+<hr>
+{% include 'medicines/snippets/pages.html' %}
+</div>
+
+{% endblock %}
