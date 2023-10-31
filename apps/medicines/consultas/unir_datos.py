@@ -20,34 +20,41 @@ import json
 # FUNCION PARA UNIR LA INFORMACION COMPLETA DEL MEDICAMENTO
 def informacion_completa_medicamento():
     # VARIABLES
-    listado_completo =[]
-    diccionario_datos = {}
+    listado_completo =[]   
     listado_medicamento = LISTADOMEDICAMENTO+';'
     
     with connection.cursor() as cursor:
+        medicamento_list = []
         cursor.execute(listado_medicamento)
         resultado = cursor.fetchall()
 
         for medicamento in resultado:
             # Guardar toda la informacion de medicamento
-            medi = Medicamento(medicamento[0], medicamento[1], medicamento[2], medicamento[3])          
-            diccionario_datos['medicines']= medi.diccionario
-
+            medi = Medicamento(medicamento[0], medicamento[1], medicamento[2])            
+            medicamento_list.append(medi)
+        
+        for medic in medicamento_list:
+            diccionario_datos={}
+            # Medicamento
+            diccionario_datos['medicines']= medic.diccionario
             # Historial del medicamento
-            diccionario_datos['historial_medicamento'] = historial_medicamento(medi.id)
-            
+            diccionario_datos['historial_medicamento'] = historial_medicamento(medic.id)
+
             # Historial de Inventario
-            diccionario_datos['hisotrial_inventario'] = historial_inventario(medi.id)
+            diccionario_datos['hisotrial_inventario'] = historial_inventario(medic.id)
             
             # Segun su Clasificacion
-            diccionario_datos['clasificacion'] = clasificacion(medi.id)
-
-            
+            diccionario_datos['clasificacion'] = clasificacion(medic.id)
 
             listado_completo.append(diccionario_datos)
+        
+        
+        return listado_completo
+        
+        
+
+
     
-    
-    return listado_completo
 
 # Lista el historial del medicamento segun el medicamento
 def historial_medicamento(id):

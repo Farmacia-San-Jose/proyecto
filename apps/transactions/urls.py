@@ -8,6 +8,7 @@ from . import views
 from apps.transactions.api import routers
 
 urlpatterns = [
+    path('realizar_transaccion/', views.agregar_transaccion, name='realizar_transaccion')
 
 
 ]

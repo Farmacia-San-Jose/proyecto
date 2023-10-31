@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <!-- APARTADO DE INFORMACION-->
+    <div class="row">
+        <div class="col" style="text-align: center;">
+            <div class="informacion">
+                <h3>Transaccion</h3>
+                <p>Aqui se crea las entradas y salidas</p>
+    
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    <div class="row">
+        <!-- APARTADO DEL FORMULARIO-->
+        <form>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="form-label" for="select_medicamento">Selecciona el Medicamento</label>
+                                <select class="form-control medi " name="select_medicamento" id="select_medicamento" style="width: 85%;">
+                                    {% for medicine in medicines %}
+                                    <option value="{{medicine.medicines.id}}"> {{medicine.historial_medicamento.medication_code}} --- {{medicine.medicines.medicine_name}} --- {{medicine.historial_medicamento.presentation_id.presentation_type}} </option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                {{form.transaction_type.label_tag}}
+                                {{form.transaction_type}}            
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                {{form.transaction_date.label_tag}}
+                                {{form.transaction_date}}            
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                {{form.user_id.label_tag}}
+                                {{form.user_id}}
+                                <input type="hidden" id="user" value="{{user}}">
+                            </div>
+
+                        </div>
+                        
+
+                    </div>
+                    
+
+                </div>
+                
+                
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <a href="#">Cancelar</a>
+                    <button>Agregar</button>
+                </div>
+            </div>
+            
+
+
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script type="module" src="{% static 'js/transactions/form.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
