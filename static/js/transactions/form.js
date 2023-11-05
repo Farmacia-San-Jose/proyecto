@@ -11,7 +11,8 @@ const seleccionar = document.getElementById('seleccionar');
 
 import {table_list} from './table.js';
 
-seleccionar.addEventListener('click', function(){
+seleccionar.addEventListener('click', function(event){
+    event.preventDefault();
     var select_medicamento = document.getElementById('select_medicamento');
     var valor_seleccionado = select_medicamento.value;
 

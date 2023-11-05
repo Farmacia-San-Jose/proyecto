@@ -4,6 +4,7 @@ const table_body = document.getElementById('table_body');
 let regi = [];
 let registros = [];
 
+// Agrupando todos los medicamento que estan siento seleccionados
 export const table_list = (id) => {
     let medicines = urls.api_url_medicamento + id + '/';
     let info = [];
@@ -43,20 +44,19 @@ export const table_list = (id) => {
 
 }
 
+// LISTAR TODOS LOS MEDICAMENTOS SELECCIONADOS
 function listar(d) {
-    
-
     regi.push(d);
     table_body.innerHTML = "";
-    let listas = [];
-    let medi_dic = {};
+    
+    
     var tabla = document.getElementById("miTabla");
 
     regi.forEach((elements, indice) => {
         var nuevaFila = table_body.insertRow();
         elements.forEach((element) => {
 
-            var medication_code = nuevaFila.insertCell(-1);
+            var medication_code = nuevaFila.insertCell(0);
             medication_code.textContent = element.medication_code;
 
             var medicine_name = nuevaFila.insertCell(1);
@@ -71,19 +71,16 @@ function listar(d) {
             inputQuantity.id = "cantidad";
             inputQuantity.name = "cantidad";
             inputQuantity.min = "1";
-            inputQuantity.value = "1";
             inputQuantity.style = "width:4rem; border:1px solid #52be80;";
-            medi_dic['cantidad'] = inputQuantity.value;
-
-            inputQuantity.addEventListener("click", ()=>{
-                medi_dic['cantidad'] = inputQuantity.value;
-            });
+            inputQuantity.value = "1";
             quantity.appendChild(inputQuantity);
+            
 
             var sale_price = nuevaFila.insertCell(4);
-            sale_price.textContent = "Q " + element.sale_price;
-
-
+            let span_price = document.createElement("span")
+            span_price.textContent = element.sale_price;
+            sale_price.textContent = "Q ";
+            sale_price.appendChild(span_price)
 
 
             var btn_remove = nuevaFila.insertCell(5);
@@ -103,38 +100,36 @@ function listar(d) {
 
             });
 
-            
-
-            
-            medi_dic['medicine_id'] = element.medicine_id;
-            medi_dic['sale_price']= element.sale_price;
-             
-            
-
-
-
-
+            var id_me = nuevaFila.insertCell(6);
+            let input_id_me = document.createElement('input');
+            input_id_me.type = "hidden";
+            input_id_me.value = element.medicine_id;
+            id_me.appendChild(input_id_me)
         });
     });
-    listas.push(medi_dic);
-    agrupar(listas);
-
     
-
-
-
-
-
-
-
-
-
 
 }
 
-function agrupar(dl){
-    registros.push(dl);
-    console.log(registros);
+// Obtener la informacion de la tabla
+function agrupar(){
+    var filas = table_body.getElementsByTagName('tr');
+    let listas = [];
+    for(var i=0; i<filas.length; i++){
+        
+        var celdas = filas[i].getElementsByTagName('td');
+        let medi_dic = {
+            medicine_id:celdas[6].querySelector('input').value,
+            cantidad:celdas[3].querySelector('input').value,
+            sale_price:celdas[4].querySelector('span').textContent,
+
+        };
+        listas.push(medi_dic)
+
+        
+    }
+    console.log(listas);
+    registros.push(listas);
 
 }
 
@@ -154,7 +149,7 @@ enviar_transaccion.addEventListener("submit", function (event) {
     const validar = document.getElementById('validar');
     
     
-    
+    agrupar()
 
     // EVITAR QUE SE RECARGUE LA PAGINA
     event.preventDefault();

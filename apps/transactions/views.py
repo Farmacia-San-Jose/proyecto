@@ -18,6 +18,9 @@ from apps.medicines.consultas.unir_datos import informacion_completa_medicamento
 import json
 from django.http import JsonResponse
 
+# MENSAJE 
+from django.contrib import messages
+
 #Paginacion
 from .pagination import paginacion
 
@@ -31,6 +34,7 @@ def eliminar(request, id):
     
     historial = get_object_or_404(HistorialTransaccion, id=id)
     historial.delete()
+    messages.success(request, 'Se ha eliminado correctamente')
     return redirect('transactions:index')
 
 #--- DETALLE DE CADA TRANSACCION
@@ -76,6 +80,7 @@ def agregar_transaccion(request):
             ver = json.loads(infor)
             validar = ver.get('validar')
             lista = ver.get('lista', [])
+            print(ver)
             user_id = request.user.id        
             transaction_type = ver.get('transaction_type')
             transaction_date = ver.get('transaction_date')
@@ -89,7 +94,7 @@ def agregar_transaccion(request):
                 transaccion.user_id = user
                 transaccion.total = 0
                 transaccion.save()
-
+                
                 for contenido in lista:
                     for elementos in contenido:
                         #{'cantidad': '1', 'medicine_id': 15, 'sale_price': '5.50'}
@@ -104,9 +109,9 @@ def agregar_transaccion(request):
                         detalle_transaccion.price = elementos["sale_price"]
                         detalle_transaccion.subtotal = 0
                         detalle_transaccion.save()
-
+                
                 response_data = {'mensaje': 'Datos recibidos correctamente'}
-
+                
                 return JsonResponse(response_data)
             return redirect('transactions:realizar_transaccion')
 
