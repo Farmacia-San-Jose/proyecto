@@ -3,48 +3,146 @@
 
 
 {% block content %}
-{{medicine.medicine_name}}
-<br>
-{{medicine.description}}
-<br>
-{% for classifications in clasificacion%}
-    {{classifications.therepeuticuse_id}}
-    <br>
-    {{classifications.formadministration_id}}
-    <br>
-{% endfor %}
-<br>
+<div class="card">
+    <div class="card-body">
+        <!-- Informacion principal-->
+        <div class="row">
+            <div class="col">
+                <h3>{{medicine.medicine_name}}</h3>
+                <p>{{medicine.description}}</p>
+                <input type="hidden" id="medicine_id" value="{{medicine.id}}">
+            </div>
+        </div>
 
-{% for historial_m in historial_medicamento%}
-    {{historial_m.supplier_id}}
-    <br>
-    {{historial_m.presentation_id}}
-    <br>
-    Q{{historial_m.cost_price}}
-    <br>
-    {{historial_m.medication_code}}
-    <br>
-    {{historial_m.brand}}
-    <br>
-    {{historial_m.expiration_date}}
-    <br>
-{% endfor %}
-<br>
+        <!-- HISTORIAL DE INVENTARIO-->
+        <div class="row" style="margin-top: 2rem;">
+            <h6>Historial de Inventario</h6>
+            <hr>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ubicacion</th>
+                            <th scope="col">Seccion</th>
+                            <th scope="col">Precio de venta</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Fila</th>
+                            <th scope="col">Columna</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for historial_i in historial_inventario %}
+                        <tr>
+                            <td>{{historial_i.location_id}}</td>
+                            <td>{{historial_i.locationsection_id}}</td>
+                            <td>Q {{historial_i.sale_price}}</td>
+                            <td>{{historial_i.quantity_stock}}</td>
+                            <td>{{historial_i.row}}</td>
+                            <td>{{historial_i.column}}</td>
+                        </tr>
+                        {% endfor %}
 
-{% for historial_i in historial_inventario %}
-    {{historial_i.location_id}}
-    <br>
-    {{historial_i.quantity_stock}}
-    <br>
-    {{historial_i.row}}
-    <br>
-    {{historial_i.column}}
-    <br>
-    Q{{historial_i.sale_price}}
-    <br>
-    {{historial_i.locationsection_id}}
-    <br>
+                    </tbody>
+                </table>
 
-{% endfor %}
-<br>
+            </div>
+
+        </div>
+        <!-- HISTORIAL DEL MEDICAMENTO-->
+        <div class="row" style="margin-top: 2rem;">
+            <h6>Historial del Medicamento</h6>
+            <hr>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Proveedor</th>
+                            <th scope="col">Presentacion</th>
+                            <th scope="col">Codigo</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Precio de costo</th>
+                            <th scope="col">Fecha de vencimiento</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for historial_m in historial_medicamento%}
+                        <tr>
+                            <td scope="row">{{historial_m.supplier_id}}</td>
+                            <td>{{historial_m.presentation_id}}</td>
+                            <td>{{historial_m.medication_code}}</td>
+                            <td>{{historial_m.brand}}</td>
+                            <td>Q {{historial_m.cost_price}}</td>
+                            <td>{{historial_m.expiration_date}}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <!--SEGUN SU CLASIFICACION-->
+        <div class="row" style="margin-top: 2rem;">
+            <h6>Segun su clasificacion</h6>
+            <hr>
+
+            <div class="col-4" style="border-right: 1px solid #52be80;">
+                <p>Uso Terapeutico</p>
+
+            </div>
+            <div class="col-8" id="usoTerapeutico">
+
+
+            </div>
+            <div class="col-4" style="border-right: 1px solid #52be80;">
+                <p>Forma de Administracion</p>
+            </div>
+            <div class="col-8" id="formaAdministracion"></div>
+        </div>
+
+        <hr>
+        <div style="margin: 2rem 0;">
+            <a href="{% url 'medicines:index' %}"
+                style="margin-right: 1rem; text-decoration: none; border: 1px solid #29a060; color: #29a060; background-color: #effaf3; border-radius: 2rem; padding: 0.35rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5z" />
+                </svg>
+                Regresar
+            </a>
+            <a href="{% url 'medicines:actualizar' medicine.id %}"
+                style="margin-right: 1rem; text-decoration: none; border: 1px solid #29a060; color: #29a060; background-color: #effaf3; border-radius: 2rem; padding: 0.35rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path
+                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd"
+                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                </svg>
+                Editar
+            </a>
+            <a href="{% url 'medicines:eliminar' medicine.id %}"
+                style="text-decoration: none; border: 1px solid #29a060; color: #29a060; background-color: #effaf3; border-radius: 2rem; padding: 0.35rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+                </svg>
+                Eliminar
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script type="module" src="{% static 'js/medicines/api/detail.js' %}"></script>
 {% endblock %}

@@ -329,11 +329,15 @@ def detail(request, id):
     historial_inventario = HistorialInvetario.objects.all().filter(medicine_id=medicine_id)
     historial_medicamento = HistorialMedicamentoModel.objects.all().filter(medicine_id=medicine_id)
     clasificacion = Clasificacion.objects.all().filter(medicine_id=medicine_id)
+    uso = UsoTerapeutico.objects.all()
+    forma = FormaAdministracion.objects.all()
     context = {
         'title': '{}'.format(medicine_id),
         'medicine':medicine_id,
         'historial_inventario':historial_inventario,
         'historial_medicamento':historial_medicamento,
-        'clasificacion':clasificacion
+        'clasificacion':clasificacion,
+        'forma':forma,
+        'uso':uso,
     }
     return render(request, 'medicines/detail.html', context)
