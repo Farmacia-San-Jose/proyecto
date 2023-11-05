@@ -112,7 +112,7 @@ class HistorialInventario:
     
     @property
     def sale_price(self):
-        return self._sale_price
+        return str(self._sale_price)
     
     @property
     def diccionario(self):

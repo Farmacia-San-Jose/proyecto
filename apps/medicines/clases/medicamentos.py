@@ -99,11 +99,11 @@ class HistorialMedicamento:
     
     @property
     def expiration_date(self):
-        return self._expiration_date
+        return str(self._expiration_date)
     
     @property
     def cost_price(self):
-        return self._cost_price
+        return str(self._cost_price)
     
     @property
     def diccionario(self):

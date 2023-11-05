@@ -17,20 +17,45 @@
     <hr>
     <div class="row">
         <!-- APARTADO DEL FORMULARIO-->
-        <form>
+        <form id="miFormulario" method="POST" action="{% url 'transactions:realizar_transaccion'%}">
             {% csrf_token %}
             <div class="row">
                 <div class="col-8">
                     <div class="card">
                         <div class="card-body">
+                            <!-- Seleccionar medicamentos-->
                             <div class="form-group">
-                                <label class="form-label" for="select_medicamento">Selecciona el Medicamento</label>
+                                <label class="form-label" for="select_medicamento">Selecciona el Medicamento</label>                               
                                 <select class="form-control medi " name="select_medicamento" id="select_medicamento" style="width: 85%;">
-                                    {% for medicine in medicines %}
-                                    <option value="{{medicine.medicines.id}}"> {{medicine.historial_medicamento.medication_code}} --- {{medicine.medicines.medicine_name}} --- {{medicine.historial_medicamento.presentation_id.presentation_type}} </option>
+                                    <option value="0" selected>Seleccione un Medicamento </option>
+                                    {% for medi in medicines%}
+                                    <option value="{{medi.medicines.id}}">{{medi.historial_medicamento.medication_code}} -- {{medi.medicines.medicine_name}} -- {{medi.historial_medicamento.presentation_id.presentation_type}}</option>
                                     {% endfor %}
+                                    
 
                                 </select>
+                                <button type="button" id="seleccionar" style="background-color:#52be80; color: #effaf3; border: 1px solid #52be80; border-radius: 2rem; height: 2rem;">Seleccionar</button>
+                                <p id="resultado"></p>
+                            </div>
+                            <br>
+
+                            <!-- Listar los medicamentos seleccionados-->
+                            <div class="form-group">
+                                <table class="table table-hover" id="miTabla" name="miTabla">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Medicamento</th>
+                                        <th scope="col">Presentacion</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Precio</th>
+                                                                          
+                                        <th scope="col">...</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="table_body">
+                                    </tbody>
+                                  </table>
                             </div>
 
                         </div>
@@ -70,7 +95,8 @@
             <div class="row">
                 <div class="col">
                     <a href="#">Cancelar</a>
-                    <button>Agregar</button>
+                    <input type="hidden" id="validar" name="validar">                    
+                    <button type="submit" id="enviar_transaccion">Agregar</button>
                 </div>
             </div>
             
