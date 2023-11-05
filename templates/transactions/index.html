@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- INFORMACION SOBRE ESTE APARTADO-->
+<div class="row">
+    <div class="col">
+        <h3>HISTORIAL DE TRANSACCION</h3>
+        <p>En este apartado de historial de transacciones es un registro detallado de todas las transacciones que la empresa ha tenido como las entradas y las salidas de los medicamentos</p>
+
+    </div>
+</div>
+<hr>
+<!--Boton para agregar-->
+<div class="row">
+    <div class="d-flex justify-content-end">
+        <div >
+            <a href="{% url 'transactions:realizar_transaccion' %}" style="border: 1px solid #29a060; color: #29a060; background-color: #effaf3; text-decoration: none; height:  10rem; border-radius: 2rem; padding: 0.3rem;">Realizar una nueva transaccion</a>
+        </div>
+
+    </div>
+    
+</div>
+<!--LISTAR INFORMACION-->
+<div class="row" style="margin-top: 2rem;">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">        
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">Entradas</h5>
+                          {% for entrada in entradas_list %}
+                          <div class="card" style="background-color: #effaf3; border: 1px solid #52be80;">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-body-secondary">{{entrada.transaction_type}}</h6>
+                                <p class="text-body-secondary">Hecha por: {{entrada.user_id}}</p>
+                                <p class="text-body-secondary">Fecha: {{entrada.transaction_date}}</p>
+                                <a href="{% url 'transactions:detalle' entrada.id %}" class="card-link" style="background-color:#d7f4df ; color: #15673f; border: 1px solid #15673f; text-decoration: none; padding: 0.3rem; border-radius: 2rem; margin-right: 1rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                      </svg>
+                                      Ver
+                                </a>
+                                
+                                <a href="{% url 'transactions:eliminar' entrada.id %}" style="background-color:#d7f4df ; color: #15673f; border: 1px solid #15673f; text-decoration: none; padding: 0.3rem; border-radius: 2rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                  </svg> Eliminar
+                                </a>
+
+                            </div>
+                          </div>
+                          <br>
+                          {% endfor %}
+                          
+                          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">        
+                    <div class="card" >
+                        <div class="card-body">
+                          <h5 class="card-title">Salidas</h5>
+                          {% for salidas in salidas_list %}
+                          <div class="card" style="background-color: #effaf3; border: 1px solid #52be80;">
+                            <div class="card-body">
+                                <h6 class="card-subtitle mb-2 text-body-secondary">{{salidas.transaction_type}}</h6>
+                                <p class="text-body-secondary">Hecha por: {{salidas.user_id}}</p>
+                                <p class="text-body-secondary">Fecha: {{salidas.transaction_date}}</p>
+                                <a href="{% url 'transactions:detalle' salidas.id %}" class="card-link" style="background-color:#d7f4df ; color: #15673f; border: 1px solid #15673f; text-decoration: none; padding: 0.3rem; border-radius: 2rem; margin-right: 1rem;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                                      </svg>
+                                      Ver
+                                </a>
+                                <a href="{% url 'transactions:eliminar' salidas.id %}" style="background-color:#d7f4df ; color: #15673f; border: 1px solid #15673f; text-decoration: none; padding: 0.3rem; border-radius: 2rem;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                    <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                                  </svg> Eliminar
+                                </a>
+
+                            </div>
+                          </div>
+                          <br>
+                          {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+    
+
+</div>
+<hr>
+{% include 'transactions/snippets/pages.html' %}
+{% endblock %}

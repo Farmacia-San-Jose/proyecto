@@ -184,7 +184,7 @@ enviar_transaccion.addEventListener("submit", function (event) {
             console.error('Error:', error);
         });
 
-        window.location.href = '/';
+        window.location.href = '/transaccion/';
 
 
 
