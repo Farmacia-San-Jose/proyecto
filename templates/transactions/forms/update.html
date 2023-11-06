@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <!-- APARTADO DE INFORMACION-->
+    <div class="row">
+        <div class="col" style="text-align: center;">
+            <div class="informacion">
+                <h3>Transaccion</h3>
+                <p>Aqui se crea las entradas y salidas</p>
+    
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    <div class="row">
+        <!-- APARTADO DEL FORMULARIO-->
+        <form id="miFormulario" method="POST" action="{% url 'transactions:editar' transaccion.id%}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Seleccionar medicamentos-->
+                            <div class="form-group">
+                                <label class="form-label" for="select_medicamento">Selecciona el Medicamento</label>                               
+                                <select class="form-control medi " name="select_medicamento" id="select_medicamento" style="width: 85%;">
+                                    <option value="0" selected>Seleccione un Medicamento </option>
+                                    {% for medi in medicines%}
+                                    <option value="{{medi.medicines.id}}">{{medi.historial_medicamento.medication_code}} -- {{medi.medicines.medicine_name}} -- {{medi.historial_medicamento.presentation_id.presentation_type}}</option>
+                                    {% endfor %}
+                                    
+
+                                </select>
+                                <button type="button" id="seleccionar" style="background-color:#52be80; color: #effaf3; border: 1px solid #52be80; border-radius: 2rem; height: 2rem;">Seleccionar</button>
+                                <p id="resultado"></p>
+                            </div>
+                            <br>
+
+                            <!-- Listar los medicamentos seleccionados-->
+                            <div class="form-group">
+                                <table class="table table-hover" id="miTabla" name="miTabla">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Medicamento</th>
+                                        <th scope="col">Presentacion</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Precio</th>
+                                                                          
+                                        <th scope="col">...</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="table_body">
+                                    </tbody>
+                                  </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                {{form.transaction_type.label_tag}}
+                                {{form.transaction_type}}            
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                {{form.transaction_date.label_tag}}
+                                {{form.transaction_date}}            
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                {{form.user_id.label_tag}}
+                                {{form.user_id}}
+                                <input type="hidden" id="user" value="{{user}}">
+                            </div>
+
+                        </div>
+                        
+
+                    </div>
+                    
+
+                </div>
+                
+                
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <a href="{% url 'transactions:index' %}">Cancelar</a>
+                    <input type="hidden" id="validar" name="validar"> 
+                    <input type="hidden" id="id_transaccion" name="id_transaccion" value="{{transaccion.id}}">                   
+                    <button type="submit" style="border: 1px solid #52be80; background-color: #52be80; color: #effaf3; border-radius: 2rem; height: 2rem; width: 5rem;" id="enviar_transaccion">Agregar</button>
+                </div>
+            </div>
+            
+
+
+        </form>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script type="module" src="{% static 'js/transactions/update/form.js' %}"></script>
+{% endblock %}
+
+{% block css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}

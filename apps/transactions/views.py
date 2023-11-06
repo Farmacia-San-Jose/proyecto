@@ -56,9 +56,9 @@ def detalle_transaccion(request, id):
 #--- LISTAR ENTRADAS Y SALIDAS
 @login_required
 def listar_transacciones(request):
-    historialTransaccion_list = HistorialTransaccion.objects.all()
-    entradas = HistorialTransaccion.objects.all().filter(transaction_type='Entrada')
-    salidas = HistorialTransaccion.objects.all().filter(transaction_type='Salida')
+    historialTransaccion_list = HistorialTransaccion.objects.all().order_by('-id')
+    entradas = HistorialTransaccion.objects.all().filter(transaction_type='Entrada').order_by('-id')
+    salidas = HistorialTransaccion.objects.all().filter(transaction_type='Salida').order_by('-id')
     page_obj = paginacion(request,historialTransaccion_list)
     
 
@@ -69,6 +69,90 @@ def listar_transacciones(request):
         'page_obj':page_obj,     
     }
     return render(request, 'transactions/index.html', context)
+
+
+#--- Editar Entradas y Salidas
+@login_required
+def editar_transacciones(request, id):
+    transaccion = get_object_or_404(HistorialTransaccion, id=id)
+    form = HistorialTransaccionForm(instance=transaccion)
+    if request.method == 'POST':
+        try:
+            infor = request.body
+            ver = json.loads(infor)
+            validar = ver.get('validar')
+            lista = ver.get('lista', [])            
+            user_id = request.user.id        
+            transaction_type = ver.get('transaction_type')
+            transaction_date = ver.get('transaction_date')
+            
+            
+            if validar:
+                transaccion.transaction_type = transaction_type
+                transaccion.transaction_date = transaction_date
+                user = get_object_or_404(User, id=user_id)
+                transaccion.user_id = user
+                transaccion.total = 0
+                transaccion.save()
+                detalle_historial_transaccion = DetalleTransaccion.objects.all().filter(transaction_id=transaccion)
+                for contenido in lista:
+                    if(len(contenido) == len(detalle_historial_transaccion)):
+                        print("Sigue la misma cantidad de seleccionados, pero pudo ver algun cambio, vamos a revisar")
+
+                        for elemento, elemento2 in zip(contenido, detalle_historial_transaccion):
+                            elemento2.transaction_id = transaccion
+                            medicamento_id = get_object_or_404(Medicamento, id = elemento["medicine_id"])
+                            elemento2.medicine_id = medicamento_id
+                            elemento2.quantity = elemento["cantidad"]
+                            elemento2.price = elemento["sale_price"]
+                            elemento2.subtotal = 0
+                            elemento2.save()
+
+                    elif(len(contenido) < len(detalle_historial_transaccion)):
+                        print("Se quito un elemento, vamos a revisar")
+                        # Se eliminan todos los detalles de esta transaccion y se crea un nuevo detalle
+                        detalle_historial_transaccion.delete()
+                        for elementos in contenido:
+                            nuevo_detalle = DetalleTransaccion()
+                            medicamento_id = get_object_or_404(Medicamento, id = elementos["medicine_id"])
+                            nuevo_detalle.transaction_id = transaccion
+                            nuevo_detalle.medicine_id = medicamento_id
+                            nuevo_detalle.quantity = elementos["cantidad"]
+                            nuevo_detalle.price = elementos["sale_price"]
+                            nuevo_detalle.subtotal = 0
+                            nuevo_detalle.save()
+
+                    elif(len(contenido) > len(detalle_historial_transaccion)):
+                        print("Se agrego un nuevo elemento, vamos agregarlo")
+                        # Se eliminan todos los detalles de esta transaccion y se crea un nuevo detalle
+                        detalle_historial_transaccion.delete()
+                        for elementos in contenido:
+                            nuevo_detalle = DetalleTransaccion()
+                            medicamento_id = get_object_or_404(Medicamento, id = elementos["medicine_id"])
+                            nuevo_detalle.transaction_id = transaccion
+                            nuevo_detalle.medicine_id = medicamento_id
+                            nuevo_detalle.quantity = elementos["cantidad"]
+                            nuevo_detalle.price = elementos["sale_price"]
+                            nuevo_detalle.subtotal = 0
+                            nuevo_detalle.save()
+                        
+                
+                response_data = {'mensaje': 'Datos recibidos correctamente'}
+                
+                return JsonResponse(response_data)
+            return redirect('transactions:realizar_transaccion')
+
+        except ValueError:
+            print('DECODING JSON HAS FAILED')
+    context = {
+        'title':'Editar {}'.format(transaccion),
+        'form':form,
+        'medicines': informacion_completa_medicamento(),
+        'user':request.user,
+        'user_id':request.user.id,
+        'transaccion':transaccion
+    }
+    return render(request, 'transactions/forms/update.html', context)
 
 
 #---- CREAR ENTRADAS Y SALIDAS 
