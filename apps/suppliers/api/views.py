@@ -21,7 +21,7 @@ class ProveedorViewSet(viewsets.ModelViewSet):
 
 # GET- POST
 class ProveedorList(APIView):
-    #permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
         proveedor = Proveedor.objects.all()
@@ -37,7 +37,7 @@ class ProveedorList(APIView):
     
 # GET - PUT - DELETE
 class ProveedorDetail(APIView):
-    #permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     def get_object(self, pk):
         try:
             return Proveedor.objects.get(pk=pk)
