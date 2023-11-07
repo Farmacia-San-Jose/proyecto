@@ -4,6 +4,7 @@ from django.http import Http404
 from .models import User
 from .forms import UserForm, UpdateUserForm, RegistroForm
 from django.views import generic
+from django.urls import reverse_lazy, reverse
 
 #Decorador
 from django.contrib.auth.decorators import login_required
@@ -24,37 +25,33 @@ class userCreateView(generic.CreateView):
     form_class = RegistroForm
     model = User
 
-    def get_success_url(self):
-        return redirect('suppliers:index')
+    success_url = reverse_lazy(('users:index'))
+
+    
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Crear un Nuevo Usuario'
         return context
     
-    def get_queryset(self):
-        return User.objects.all()
+    
 
 class userUpdateView(generic.UpdateView):
     template_name = 'users/updateuser.html'
     form_class = UpdateUserForm
     model = User
 
-    def get_success_url(self):
-        return redirect ('suppliers:index')
-    
+    success_url = reverse_lazy(('users:index'))
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Actualizar Usuario'
         return context
     
-    def get_queryset(self):
-        return User.objects.all()
+    
     
 class userDeleteView(generic.DeleteView):
     template_name = 'users/deleteuser.html' 
-    def get_success_url(self):
-        return redirect('suppliers:index')
+    success_url = reverse_lazy(('users:index'))
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)

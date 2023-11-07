@@ -6,6 +6,7 @@ class ProveedorForm(ModelForm):
     class Meta: 
         model = Proveedor 
         fields = '__all__'
+        
         widgets = {
             'first_name':TextInput(attrs = {'type': 'text'}),
             'last_name': TextInput(attrs={'type':'text'}),
