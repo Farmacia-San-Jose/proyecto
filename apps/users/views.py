@@ -54,7 +54,7 @@ class userUpdateView(generic.UpdateView):
 class userDeleteView(generic.DeleteView):
     template_name = 'users/deleteuser.html' 
     def get_success_url(self):
-        return reverse('suppliers:index')
+        return redirect('suppliers:index')
     
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)
