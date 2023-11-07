@@ -5,13 +5,13 @@ from .forms import UserForm
 from django.views import generic
 
 class userListView(generic.ListView):
-    template_name = '../templates/users/users.html'
+    template_name = 'users/users.html'
     context_object_name = 'usuario'
     def get_queryset(self):
         return User.objects.all()
 
 class userCreateView(generic.CreateView):
-    template_name = '../templates/users/createuser.html'
+    template_name = 'users/createuser.html'
     form_class = UserForm
 
     def get_success_url(self):
@@ -21,7 +21,7 @@ class userCreateView(generic.CreateView):
         return User.objects.all()
 
 class userUpdateView(generic.UpdateView):
-    template_name = '../templates/users/updateuser.html'
+    template_name = 'users/updateuser.html'
     form_class = UserForm
 
     def get_success_url(self):
@@ -31,7 +31,7 @@ class userUpdateView(generic.UpdateView):
         return User.objects.all()
     
 class userDeleteView(generic.DeleteView):
-    template_name = '../templates/users/deleteuser.html' 
+    template_name = 'users/deleteuser.html' 
     def get_success_url(self):
         return reverse('suppliers:index')
     
