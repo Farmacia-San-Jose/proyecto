@@ -1,31 +1,52 @@
-from django.shortcuts import render, reverse, redirect
+from typing import Any
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from .models import User
-from .forms import UserForm
+from .forms import UserForm, UpdateUserForm, RegistroForm
 from django.views import generic
+
+#Decorador
+from django.contrib.auth.decorators import login_required
 
 class userListView(generic.ListView):
     template_name = 'users/users.html'
     context_object_name = 'usuario'
     def get_queryset(self):
         return User.objects.all()
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Usuarios'
+        return context
 
 class userCreateView(generic.CreateView):
     template_name = 'users/createuser.html'
-    form_class = UserForm
+    form_class = RegistroForm
+    model = User
 
     def get_success_url(self):
-        return reverse('suppliers:index')
+        return redirect('suppliers:index')
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Crear un Nuevo Usuario'
+        return context
     
     def get_queryset(self):
         return User.objects.all()
 
 class userUpdateView(generic.UpdateView):
     template_name = 'users/updateuser.html'
-    form_class = UserForm
+    form_class = UpdateUserForm
+    model = User
 
     def get_success_url(self):
-        return reverse ('suppliers:index')
+        return redirect ('suppliers:index')
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Actualizar Usuario'
+        return context
     
     def get_queryset(self):
         return User.objects.all()
@@ -35,7 +56,21 @@ class userDeleteView(generic.DeleteView):
     def get_success_url(self):
         return reverse('suppliers:index')
     
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Eliminar Usuario'
+        return context
+    
     def get_queryset(self):
         return User.objects.all()
     
-#-- Mostrar el perfil de cada usuario
+#-- Mostrar el perfil de cada usuario}
+@login_required
+def perfil(request):
+    user = get_object_or_404(User, id=request.user.id)
+    
+    context = {
+        'title':'{}'.format(request.user),
+        'user':user
+    }
+    return render(request, 'users/perfil.html',context)

@@ -1,13 +1,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="POST">
-    <h1>Editar proveedor</h1>
+<div class="row">
+    <div class="col">
+        <h3>Editar Usuario</h3>
+    </div>
     
-    {{ form.as_p }}
+    <div class="d-flex justify-content-end"><a type="button" style="border: 1px solid #15673f; color: #15673f; text-decoration: none; padding: 0.5rem; border-radius: 2rem; background-color: #effaf3;" href=" {% url 'users:index' %}">Volver atrás</a> </div>
+</div>
+<hr>
+<div class="row">
+    <form method="POST">
+        {% csrf_token %}
+
+        {% for field in form %}
+            
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
     
-    <button type="submit" class="btn btn-info">Editar</button> 
-    {% csrf_token %}
-</form>
-<a type="button" class="btn btn-secondary" href=" {% url 'users:index' %}">Volver atrás</a> 
+                    {% if field.errors %}
+                        {{ field.errors }}
+                    {% endif %}
+                </div>
+                <br>
+               
+        
+            
+                
+        {% endfor %}
+        
+        
+        
+        <br>
+        <hr>
+        <a type="button" style="border: 1px solid #15673f; color: #15673f; text-decoration: none; padding: 0.5rem; border-radius: 2rem; background-color: #effaf3;" href=" {% url 'users:index' %}">Volver atrás</a>
+        <button type="submit" style="background-color: #15673f; color: #effaf3; border: 1px solid #15673f; padding: 0.5rem 1rem; border-radius: 2rem;">Editar</button> 
+        
+    </form>
+
+</div>
+
+
 {% endblock %}

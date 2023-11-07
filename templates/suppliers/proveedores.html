@@ -1,38 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Lista de proveedores</h1>
-    <td><a href="{% url 'suppliers:createprov' %}" type="button" class="btn btn-secondary">Modificar</a></td>
-    <ul>
-        
-        <table class="table">
-            <thead>
-              <tr>
-                
-                <th scope="col">Nombres</th>
-                <th scope="col">Email</th>
-                <th scope="col">Teléfono</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+<!-- INFORMACION-->
+<div class="row">
+  <h3>Lista de proveedores</h3>
+  <p>Estos proveedores pueden ser fabricantes, distribuidores, mayoristas, minoristas u otros tipos de empresas que
+    proporcionan productos o servicios necesarios para el funcionamiento de un negocio o para satisfacer las necesidades
+    de los consumidores.</p>
+</div>
+<hr>
+<div class="row">
+  <div class="d-flex justify-content-end">
+    <a href="{% url 'suppliers:createprov' %}"
+      style="border: 1px solid #15673f; color: #15673f; text-decoration: none; padding: 0.5rem; border-radius: 2rem; background-color: #effaf3;">Añadir
+      Nuevo Proveedor</a>
 
-                
-              </tr>
-            </thead>
-            <tbody>
-                {% for prov in proveedor %}
-                <tr>
-                
-                <td>{{ prov.first_name }} {{ prov.last_name }}</td>
-                <td>{{ prov.email }}</td>
-                <td>{{ prov.telephone }}</td>
-                <td><a href="{% url 'suppliers:updateprov' prov.pk %}" type="button" class="btn btn-info">Modificar</a></td>
-                <td><a href="{% url 'suppliers:deleteprov' prov.pk %}" type="button" class="btn btn-danger">Eliminar</a></td>
-                </tr>
-                {% endfor %}
-            </tbody>
-          </table>
+  </div>
+</div>
+
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+
+      <th scope="col">Nombres</th>
+      <th scope="col">Email</th>
+      <th scope="col">Teléfono</th>
+      <th scope="col">...</th>
+      <th scope="col"></th>
+
+
+    </tr>
+  </thead>
+  <tbody>
+    {% for prov in proveedor %}
+
+    <tr>
+      
+      <td>{{ prov.first_name }} {% if  prov.last_name %} {{ prov.last_name }} {% endif %}</td>
+      <td> {% if prov.email %}  {{ prov.email }} {% else %} <span class="text-body-secondary"> Este proveedor no cuenta con <br>Correo Electronico registrado</span> {% endif %} </td>
+      <td>{% if prov.telephone  %}  {{ prov.telephone }} {% else %}<span class="text-body-secondary"> Este proveedor no cuenta con <br>Numero de telefono registrado</span> {% endif %}</td>
+      <td>
+        <div class="dropdown">
+          <button style="border: 1px solid #effaf3; background-color: #effaf3;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ...
+          </button>
+          <ul class="dropdown-menu" >
+            <li><a href="{% url 'suppliers:updateprov' prov.pk %}"  style="text-decoration: none; color: #000; margin-left: 0.5rem;">Modificar</a></li>
+            <hr>
+            <li><a href="{% url 'suppliers:deleteprov' prov.pk %}"  style="text-decoration: none; color: red; margin-left: 0.5rem;" >Eliminar</a></li>
             
-        
-    </ul>
+          </ul>
+        </div>
+      </td>
+      
+    </tr>
+
+
+
+    {% endfor %}
+  </tbody>
+</table>
+
+
+
 
 {% endblock %}

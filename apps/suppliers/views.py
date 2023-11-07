@@ -18,6 +18,11 @@ class provListView(generic.ListView):
     context_object_name = 'proveedor'
     def get_queryset(self):
         return Proveedor.objects.all()
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Proveedores'
+        return context
 
 class provCreateView(generic.CreateView):
     template_name = 'suppliers/createproveedor.html'
@@ -28,6 +33,11 @@ class provCreateView(generic.CreateView):
     
     def get_queryset(self):
         return Proveedor.objects.all()
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Crear un Nuevo Proveedor'
+        return context
 
 class provUpdateView(generic.UpdateView):
     template_name = 'suppliers/updateproveedor.html'
@@ -35,6 +45,11 @@ class provUpdateView(generic.UpdateView):
 
     def get_success_url(self):
         return reverse ('suppliers:index')
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Actualizar Proveedor'
+        return context
     
     def get_queryset(self):
         return Proveedor.objects.all()
@@ -46,3 +61,8 @@ class provDeleteView(generic.DeleteView):
     
     def get_queryset(self):
         return Proveedor.objects.all()
+    
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Eliminar Proveedor'
+        return context

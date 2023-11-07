@@ -1,18 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Lista de usuarios</h1>
-    <td><a href="{% url 'users:createuser' %}" type="button" class="btn btn-secondary">Crear usuario</a></td>
-    <ul>
+<div class="row">
+  <div class="col">
+    <h3>Lista de usuarios</h3>
+    <p>El término de usuarios se refiere a las personas que estaran interactúan con el sistema.</p>
+  </div>
+  
+
+</div>
+<hr>
+<div class="row">
+  <div class="d-flex justify-content-end">
+    <a href="{% url 'users:createuser' %}" type="button" style="border: 1px solid #15673f; color: #15673f; text-decoration: none; padding: 0.5rem; border-radius: 2rem; background-color: #effaf3;">Crear Usuario Nuevo</a>
+  </div>
+
+</div>
+    
         
-        <table class="table">
+        <table class="table table-hover">
             <thead>
               <tr>
                 
-                <th scope="col">Nombres</th>
+                <th scope="col">Nombre</th>
                 <th scope="col">Email</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">Tipo de Usuario</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">...</th>
+                
 
                 
               </tr>
@@ -21,17 +36,31 @@
                 {% for user in usuario %}
                 <tr>
                 
-                <td>{{ user.first_name }} {{ user.last_name }}</td>
-                
+                <td>{{ user.get_full_name }} </td>                
                 <td>{{ user.email }}</td>
-                <td><a href="{% url 'users:updateuser' user.pk %}" type="button" class="btn btn-info">Modificar</a></td>
-                <td><a href="{% url 'users:deleteuser' user.pk %}" type="button" class="btn btn-danger">Eliminar</a></td>
+                <td> {% if user.is_superuser %} Administrador {% else %} Empleado {% endif %} </td>
+                <td> {% if user.telephone%} {{ user.telephone }} {% else %} <span class="text-body-secondary"> Este Usuario no cuenta con <br>Numero de telefono registrado</span> {% endif %}</td>
+                <td>
+                  <div class="dropdown">
+                    <button style="border: 1px solid #effaf3; background-color: #effaf3;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      ...
+                    </button>
+                    <ul class="dropdown-menu" >
+                      <li><a href="{% url 'users:updateuser' user.pk %}"  style="text-decoration: none; color: #000; margin-left: 0.5rem;">Modificar</a></li>
+                      <hr>
+                      <li><a href="{% url 'users:deleteuser' user.pk %}"  style="text-decoration: none; color: red; margin-left: 0.5rem;" >Eliminar</a></li>
+                      
+                    </ul>
+                  </div>
+                </td>
+
+          
                 </tr>
                 {% endfor %}
             </tbody>
           </table>
             
         
-    </ul>
+
 
 {% endblock %}
