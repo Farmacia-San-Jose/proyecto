@@ -37,3 +37,5 @@ class userDeleteView(generic.DeleteView):
     
     def get_queryset(self):
         return User.objects.all()
+    
+#-- Mostrar el perfil de cada usuario
